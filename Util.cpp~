@@ -104,9 +104,9 @@ void Fill_opening_data(unordered_map<string, Hand_Public> &opening_data){
 		
 }
 
-//REQUIRES hand is empty
-//MODIFIES hand
-//EFFECTS  adds cards from file to given hand
+//REQUIRES 
+//MODIFIES bid_checks
+//EFFECTS  obtains south's (the test bid) correct bid for later verification. calls CheckBid_helper to varify that all other bids are consistent (human error check)
 void ReadLine(string line, Hand &hand)
 {	
 	if(line.length() > 2) //otherwise we have a void
@@ -209,9 +209,9 @@ void CheckBids(ifstream &file, string &line, vector< pair<Bid, Bid> > &bid_check
 		}
 }
 
-//REQUIRES south's hand is empty
-//MODIFIES bid_checks, opening_data, public_vec, bidder, number_hands, hands
-//EFFECTS  obtains south's (the test bid) correct bid for later verification.  fills south's hand. calls CheckBid_helper to varify that all other bids are consistent (human error check)
+//REQUIRES 
+//MODIFIES bid_checks, opening_data, public_vec, bidder, number_hands, (hand?)
+//EFFECTS  obtains south's (the test bid) correct bid for later verification. calls CheckBid_helper to varify that all other bids are consistent (human error check)
 void ReadFile(ifstream &file, 
 			  string &line, //not sure i need to be passing a string . . . can just make a new one.
 			  int &total_num_hands, 
@@ -237,7 +237,7 @@ void ReadFile(ifstream &file,
 			for(int ctr = 0; ctr < 4; ctr++)
 			{
 				getline(file, line);
-				ReadLine(line, hands[bidder]);
+				ReadLine(line, bidder, hands);
 			}
 			bidder++;
 		

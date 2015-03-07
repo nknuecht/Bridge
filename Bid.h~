@@ -23,7 +23,7 @@ enum Player{ME, NEXT, PARTNER, PREV}; //don't know where these should go (i.e. i
 
 
 
-//if possible, would like to get rid of Bid last_bid from struct (we include in each of the four different suits in suit_pq, and it's the same for each => there are reducdancies)
+
 struct Suit_Length{
 	int suit;
 	int length;

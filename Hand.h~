@@ -32,7 +32,6 @@ struct Hand{
 };
 
 struct Bid{
-	//maybe should have a name / player attached to it.
 	int suit; //maybe this should be a suit . . . 
 	int level;
 	Bid() : suit(-1), level(0) {}

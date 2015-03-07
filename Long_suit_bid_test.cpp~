@@ -71,7 +71,7 @@ while(number_hands > 0 && !file.eof()) // running through test cases.
 		//because these are copies inside of bid_checks I have to copy them back.
 		north_opening = bid_checks[0].first;
 		east_opening = bid_checks[1].first;
-		correct_south_opening = bid_checks[2].second;
+		south_correct_opening = bid_checks[2].second;
 		west_opening = bid_checks[3].first;
 		
 
