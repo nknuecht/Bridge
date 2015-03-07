@@ -1,0 +1,406 @@
+27
+//sor0 north opens 1C and you must respond.  north has 13-21, and at least  3 clubs.  probably no 5-card major and a hand unsuitable for 1NT or 2NT
+
+1C
+PASS
+S: 14 12 9 8 7
+H: 13 6 3 2
+C: 11 7 6
+D: 9
+PASS
+-
+1C
+PASS
+1S
+PASS
+---
+//sor1 north opens 1C and you must respond.  north has 13-21, and at least  3 clubs.  probably no 5-card major and a hand unsuitable for 1NT or 2NT
+
+1C
+PASS
+S: 14 12 9 8
+H: 7 4 2
+C: 10
+D: 11 8 6 3 2
+PASS
+-
+1C
+PASS
+1D
+PASS
+---
+//sor2 north opens 1D and you must respond.  Key: south doesn't have enough points (10) to respond 2C.
+
+1D
+PASS
+S: 7 4 2
+H: 14 12 9 8
+C: 11 8 6 3 2
+D: 10
+PASS
+-
+1D
+PASS
+1H
+PASS
+---
+//sor3 north opens 1D and you must respond.  Key: respond in higher ranking major when you have 2 5-card majors.
+
+1D
+PASS
+S: 13 9 6 4 2
+H: 14 13 12 8 3
+C: 7
+D: 14 2
+PASS
+-
+1D
+PASS
+1S
+PASS
+---
+//sor4 north opens 1D and you must respond.  You have 3 4-card suits. Key: repsond with four card suit that keeps the bidding the lowest.
+
+1D
+PASS
+S: 12 11 8 3
+H: 11 9 6 4
+C: 14 13 7 4
+D: 6
+PASS
+-
+1D
+PASS
+1H
+PASS
+---
+//sor5 north opens 1H and you must respond.  north has 13-21, and at least  5 hearts. you have 5 spades and 1 heart.  Key: you don't have the 6 points necessary to respond.
+
+1H
+PASS
+S: 12 10 8 3 2
+H: 7
+C: 11 8 7 6
+D: 8 3 2
+PASS
+-
+1H
+PASS
+PASS
+PASS
+---
+//sor6 north opens 1H and you must respond.  north has 13-21, and at least 5 hearts. you have 4 card heart support.  Key: let partner know about your trump support immediately! (promises 6-9 and 3+ card support).
+
+1H
+PASS
+S: 13 11 6 5
+H: 12 7 5 2
+C: 12 7 6
+D: 9 2
+PASS
+-
+1H
+PASS
+2H
+PASS
+---
+//sor7 north opens 1H and you must respond.  north has 13-21, and at least 5 hearts. you have 4 card heart support and more short points than you think! Key: reevaluate to short points!!  then you have 10 or 11 points and 3+ support.
+
+1H
+PASS
+S: 8
+H: 13 7 6 5
+C: 10 8 4 2
+D: 14 11 8 7
+PASS
+-
+1H
+PASS
+3H
+PASS
+---
+//sor8 north opens 1H and you must respond.  north has 13-21, and at least 5 hearts. you have 4 card heart support and no more short points than you think!  Key: reevaluate to short points!!  then you have 10 or 11 points and 3+ support.
+
+1H
+PASS
+S: 8 7 2
+H: 13 7 6 5
+C: 10 8 4
+D: 14 11 8
+PASS
+-
+1H
+PASS
+2H
+PASS
+---
+//sor9 north opens 1S and you must respond.  north has 13-21, and at least 5 spades and you have 4 card heart support.  Key: reevaluate to short points!!  then you have 10 or 11 points and 3+ support.  do not count short point unless you are going to raise your parnter's suit.  can't raise spades and can't bring up a new suit (too few points)--so POE => NT.  NT response promises 6-9 and unable to raise opener / introduce new suit.
+
+1S
+PASS
+S: 8
+H: 13 7 6 5
+C: 10 8 4 2
+D: 14 11 8 7
+PASS
+-
+1S
+PASS
+1NT
+PASS
+---
+//sor10 north opens 1H and you must respond.  north has 13-21, and at least 5 hearts. a tricky NT response.  Key:POE. (wonder why you wouldn't pass?).
+
+1H
+PASS
+S: 5
+H: 7
+C: 12 11 8 7 6 4
+D: 13 8 7 3 2
+PASS
+-
+1H
+PASS
+1NT
+PASS
+---
+//sor11 north opens 1S and you must respond.  Key:?
+
+1S
+PASS
+S: 11 7
+H: 14 11 6
+C: 13 11 10 2
+D: 12 11 9 4
+PASS
+-
+1S
+PASS
+2NT
+PASS
+---
+//sor12 north opens 1H and you must respond.  north has 13-21, and at least 5 hearts. a tricky NT response.
+
+1D
+PASS
+S: 13 12 6
+H: 13 11 9
+C: 14 10 9 4
+D: 14 8 2
+PASS
+-
+1D
+PASS
+3NT
+PASS
+---
+//sor13 north opens 1H and you must respond.  north has 13-21, and at least 5 hearts. a tricky NT response.  Key: 1H and not 2NT.  Problem is that 2NT denies a four card major.  1H is a forcing bid.
+
+1C
+PASS
+S: 14 12 2
+H: 13 12 9 4
+C: 7 4 2
+D: 13 11 5
+PASS
+-
+1C
+PASS
+1H
+PASS
+---
+//sor14 north opens 1H and you must respond.  Key: bid 2C not 3NT despite it being bal 16.  This is because 2NT and 3NT both deny holding a 5-card minor.  This is a forcing bid.
+
+1H
+PASS
+S: 13 12 6
+H: 7 2
+C: 13 12 10 5 3
+D: 14 13 4
+PASS
+-
+1H
+PASS
+2C
+PASS
+---
+//sor15 north opens 1H and you must respond.  Key: 2D not 3NT because you have 3+ card support for partners Spades.  Partner will not pass the forcing bid, you will rebid spades and by then you will have been able to show your points.  (here you are too strong for a 10-11pt limit raise.
+
+1S
+PASS
+S: 14 12 7
+H: 13 11 8
+C: 12 11 2
+D: 14 11 10 5
+PASS
+-
+1S
+PASS
+2D
+PASS
+---
+//sor16 north opens 1H and you must respond.  Key: 2D is forcing and you will support hearts later.  goal is to show your stregth.
+
+1H
+PASS
+S: 14 12 7
+H: 13 11 8
+C: 12 11 2
+D: 14 11 10 5
+PASS
+-
+1H
+PASS
+2D
+PASS
+---
+//sor17 north opens 1S and you must respond.  Key: here you will not support spades later.  but the 2D bid is still the right one.
+
+1S
+PASS
+S: 6 5
+H: 14
+C: 11 9 3 2
+D: 14 12 11 5 4 3
+PASS
+-
+1S
+PASS
+2D
+PASS
+---
+//sor18 north opens 1H and you must respond.  Key: prempt.
+
+1H
+PASS
+S: 11 10 8 7 4
+H: 13 10 9 3 2
+C: 10 5
+D: 6
+PASS
+-
+1H
+PASS
+4H
+PASS
+---
+//sor19 north opens 1S and you must respond.  Key: prempt.
+
+1S
+PASS
+S: 11 10 8 7 4
+H: 13 10 9 3 2
+C: 10 5
+D: 6
+PASS
+-
+1S
+PASS
+4S
+PASS
+---
+//sor20 north opens 1S and you must respond.  north has 13-21, and at least 5 hearts. a tricky NT response.
+
+1S
+PASS
+S: 11 10 8 7 4
+H: 13 10 9 3 2
+C: 10 5
+D: 6
+PASS
+-
+1S
+PASS
+4S
+PASS
+---
+//sor21 north opens 1D and you must respond.  Key: when to raise opener's minor suit.
+
+1D
+PASS
+S: 7 3
+H: 10 6
+C: 12 10 3 2
+D: 14 11 8 4 2
+PASS
+-
+1D
+PASS
+2D
+PASS
+---
+//sor22 north opens 1D and you must respond 1H.  Key: raising minor denies 4-card major.
+
+1D
+PASS
+S: 7 3
+H: 12 10 3 2
+C: 10 6
+D: 14 11 8 4 2
+PASS
+-
+1D
+PASS
+1H
+PASS
+---
+//sor23 north opens 1C and you must respond.  Key: NT is a better option than raising clubs with 4-card support.  There are stopped and it is right in the 6-9 point range.
+
+1C
+PASS
+S: 12 11 7
+H: 13 9 6
+C: 10 8 4 3
+D: 13 10 4
+PASS
+-
+1C
+PASS
+1NT
+PASS
+---
+//sor24 north opens 1D and you must respond.  Key: can't bid 2C because < 10 points.  can't bid NT because no stoppers in Majors.  Don't forget to get to 9 points (with short points) when raising partners suit (diamonds).
+
+1D
+PASS
+S: 6
+H: 8 5 2
+C: 13 10 7 6 3
+D: 13 9 8 4
+PASS
+-
+1D
+PASS
+2D
+PASS
+---
+//sor25 north opens 3C and you must respond.  Key:  Too strong for 1NT, too weak for 2NT.  No major stoppers anyway.
+
+1C
+PASS
+S: 11 8 7
+H: 5 4
+C: 13 12 10 7 3
+D: 14 7 6
+PASS
+-
+1C
+PASS
+3C
+PASS
+---
+//sor26 north opens 1D and you must respond.  Key: prempt.
+
+1D
+PASS
+S:
+H: 9 3 2
+C: 8 6 5 2
+D: 13 11 9 8 4 3
+PASS
+-
+1D
+PASS
+4D
+PASS
+---

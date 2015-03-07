@@ -1,0 +1,391 @@
+26
+//SORex0 north opens 1H and you respond 2H with three card support and 6-9 points.  key: no point in bringing up 4 card spades suit, since you have an 8-card suit.
+
+1H
+PASS
+S: 13 9 8 6
+H: 14 7 5
+C: 9 7
+D: 6 4 3 2
+PASS
+-
+1H
+PASS
+2H
+PASS
+---
+//SORex1 north opens 1S.  respond 3S with 10-11 and 3+ card support.
+
+1S
+PASS
+S: 14 10 5 3
+H: 10 6 4
+C: 14 10 5 4 3
+D: 5
+PASS
+-
+1S
+PASS
+3S
+PASS
+---
+//SORex2 north opens 1S.  respond with 4S preempt.
+
+1S
+PASS
+S: 13 9 8 5 4
+H: 11 6 5 3
+C:
+D: 10 8 4 2
+PASS
+-
+1S
+PASS
+4S
+PASS
+---
+//SORex3 north opens 1C.  respond with 1H, not 3C.  3C denies a 4-card major.  FORCING BID. we will show our club support with our next bid (which we will get because this bid is forcing).
+
+1C
+PASS
+S: 7 3
+H: 13 9 8 2
+C: 14 12 7 6 3
+D: 8 5 4
+PASS
+-
+1C
+PASS
+1H
+PASS
+---
+//SORex4 north opens 1H.  respond with 1NT.  the hand is too strong to pass and 1NT is the best worst option.
+
+1H
+PASS
+S: 7 3
+H: 4
+C: 13 12 8 6 3 2
+D: 11 9 6 5
+PASS
+-
+1H
+PASS
+1NT
+PASS
+---
+//SORex5 north opens 1C.  respond with 2NT. hand is BALANCED, has 13-15 hcp, no 4-card major, no 8-card fit.  plus it has stoppers in the the complement suits.
+
+1C
+PASS
+S: 13 11 4
+H: 14 12 8
+C: 10 7 2
+D: 14 10 7 6
+PASS
+-
+1C
+PASS
+2NT
+PASS
+---
+//SORex6 north opens 1C.  respond with 1S.  have 6-9 => bid higher ranking of your 2 5-card majors.
+
+1C
+PASS
+S: 11 9 8 7 6
+H: 13 10 5 4 2
+C: 4 2
+D: 7
+PASS
+-
+1C
+PASS
+1S
+PASS
+---
+//SORex7 north opens 1C.  respond with 1D. reason: bid lowest of your 3 4-card suits.  key: FORCING.  if partner has a 4-card major he will bid it (and you will find your 8-card fit); otherwise you will end up in 3NT.
+
+1C
+PASS
+S: 14 12 5 3
+H: 14 13 11 7
+C: 10
+D: 11 8 6 2
+PASS
+-
+1C
+PASS
+1D
+PASS
+---
+//SORex8 north opens 1C.  respond with 1D. reason: this is your longest suit.  key: FORCING.  if your partner has 4 spades, you should have enough time to find the fit.
+
+1C
+PASS
+S: 14 12 11 7
+H: 5
+C: 11 9 4
+D: 10 8 7 3 2
+PASS
+-
+1C
+PASS
+1D
+PASS
+---
+//SORex9 north opens 1D.  respond with 1S. reason: you do not have 10 points so you can't bid clubs; you have 6 points and 4 spades.  bid spades.
+
+1D
+PASS
+S: 10 9 6 2
+H: 8
+C: 14 12 9 6 3 2
+D: 9 5
+PASS
+-
+1D
+PASS
+1S
+PASS
+---
+//SORex10 north opens 1D.  respond with PASS. you do not have enough points to bid.  key: too dangerous to bid; your partner may raise you.
+
+1D
+PASS
+S: 9 6 5 4
+H: 12 8 4 3 2
+C: 10 6 4 3
+D:
+PASS
+-
+1D
+PASS
+PASS
+PASS
+---
+//SORex11 north opens 1D.  respond with 3NT. reason: you have a BALANCED hand, 16-18 hcp, no 4-card major, insufficent support in trump.  also have stopers in complement suits (unbid suits).  
+
+1D
+PASS
+S: 14 11 10
+H: 13 12 9
+C: 14 11 9 8
+D: 12 6 5
+PASS
+-
+1D
+PASS
+3NT
+PASS
+---
+//SORex12 north opens 1D.  respond with 2D.  note: if you had a four card major you should instead respond in that.
+
+1D
+PASS
+S: 5 4
+H: 3 2
+C: 11 6 4 3
+D: 14 11 10 8 2
+PASS
+-
+1D
+PASS
+2D
+PASS
+---
+//SORex13 north opens 1S.  respond with 2D.  reason: you have too many to support spades right away (you have 18 w/ short points), so introduce a new suit (forcing, indicated 12+, or is it 10+?).  key: FORCING.  you show your strength and spade support later.
+
+1S
+PASS
+S: 14 12 8 7
+H: 3
+C: 14 7 2
+D: 13 12 9 7 3
+PASS
+-
+1S
+PASS
+2D
+PASS
+---
+//SORex14 north opens 1H.  respond with 2H. example of 6-9 points from Lesson 4, Exercise 1.
+
+1H
+PASS
+S: 3
+H: 12 11 10
+C: 11 10 9 8
+D: 12 8 7 6 2
+PASS
+-
+1H
+PASS
+2H
+PASS
+---
+//SORex15 north opens 1H.  respond with 1S. example of 6-9 points from Lesson 4, Exercise 1.
+
+1H
+PASS
+S: 11 10 7 6
+H: 12 3
+C: 9 6
+D: 13 12 8 7 4
+PASS
+-
+1H
+PASS
+1S
+PASS
+---
+//SORex16 north opens 1H.  respond with 1NT. example of 6-9 points from Lesson 4, Exercise 1.
+
+1H
+PASS
+S: 13 3 2
+H: 11 10
+C: 5 3 2
+D: 12 11 9 6 4
+PASS
+-
+1H
+PASS
+1NT
+PASS
+---
+//SORex17 north opens 1D.  respond with 1S.  example of 6-9 points from Lesson 4, Exercise three.
+
+1D
+PASS
+S: 9 8 4 2
+H: 12 8 7
+C: 11 3
+D: 13 11 4 3
+PASS
+-
+1D
+PASS
+1S
+PASS
+---
+//SORex18 north opens 1D.  respond with 1NT.  example of 6-9 points from Lesson 4, Exercise three.
+
+1D
+PASS
+S: 11 10
+H: 12 4 3
+C: 13 9 7 5 3
+D: 12 9 8
+PASS
+-
+1D
+PASS
+1NT
+PASS
+---
+//SORex19 north opens 1D.  respond with 1H. example of 6-9 points from Lesson 4, Exercise three.
+
+1D
+PASS
+S: 9 5 3
+H: 12 11 10 8 7
+C: 11 5 3
+D: 12 6
+PASS
+-
+1D
+PASS
+1H
+PASS
+---
+//SORex20 north opens 1S.  respond with 2H. example of 10-11 points from Lesson 4, Exercise four.
+
+1S
+PASS
+S: 10 9
+H: 14 12 11 6 5
+C: 8 6 4 3
+D: 13 4
+PASS
+-
+1S
+PASS
+2H
+PASS
+---
+//SORex21 north opens 1S.  respond with 3S. example of 10-11 points from Lesson 4, Exercise four.
+
+1S
+PASS
+S: 11 9 8 4
+H: 13 12
+C: 13 10 7 5
+D: 11 6 3
+PASS
+-
+1S
+PASS
+3S
+PASS
+---
+//SORex22 north opens 1S.  respond with 2D.  example of 10-11 points from Lesson 4, Exercise four.
+
+1S
+PASS
+S: 8
+H: 10 6 3
+C: 14 12 11 9
+D: 12 11 10 8 6
+PASS
+-
+1S
+PASS
+2D
+PASS
+---
+//SORex23 north opens 1S.  respond with 2D.  example of 12+ points from Lesson 4, Exercise 5.  these are GAME FORCING.
+
+1S
+PASS
+S: 14 12 8 3
+H: 14 5
+C: 7 6 4
+D: 12 11 10 6
+PASS
+-
+1S
+PASS
+2D
+PASS
+---
+//SORex24 north opens 1S.  respond with 2NT.  example of 12+ points from Lesson 4, Exercise 5.  these are GAME FORCING.
+
+1S
+PASS
+S: 11 7
+H: 13 12 10
+C: 13 11 6 3
+D: 14 11 8 4
+PASS
+-
+1S
+PASS
+2NT
+PASS
+---
+//SORex25 north opens 1S.  respond with 2D.  example of 12+ points from Lesson 4, Exercise 5.  these are GAME FORCING.
+
+1S
+PASS
+S: 8
+H: 13 5 3
+C: 13 9 6 3
+D: 14 12 10 8 6
+PASS
+-
+1S
+PASS
+2D
+PASS
+---
