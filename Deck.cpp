@@ -6,9 +6,7 @@
 
 #include "Card.h"
 #include "Deck.h"
-//#include "Hand.h"
-//#include "Bid.h"
-//#include "Util.h"
+
 
 #include <cassert>
 #include <cstring> //why?
@@ -25,7 +23,8 @@ using namespace std;
 
 
 
-void Deck_init(Deck &deck){
+void Deck_init(Deck &deck)
+{
 	for(int i = 0; i <4; i++)
 	{
 		for(int j = 0; j < 13; j++)
@@ -37,12 +36,14 @@ void Deck_init(Deck &deck){
 	}
 }
 
-void Deck_shuffle(Deck &deck){
+void Deck_shuffle(Deck &deck)
+{
 	std::srand(std::time(0));
 	std::random_shuffle(deck.card_deck.begin(), deck.card_deck.end());
 }
 
-void Print_deck(Deck &deck){
+void Print_deck(Deck &deck)
+{
 	for(int i = 0; i < deck.card_deck.size(); i++)
 	{
 		Card_print(deck.card_deck[i]);

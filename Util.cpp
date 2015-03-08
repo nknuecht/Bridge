@@ -73,35 +73,34 @@ void Set_opening_data(Hand_Public &hand_data, pair<int, int> points, int suit, i
 //REQUIRES 
 //MODIFIES opening_data
 //EFFECTS  fill a table in opening_data which contains the information promised by all opening bids
-void Fill_opening_data(unordered_map<string, Hand_Public> &opening_data){
-			
-			//don't know which opening bids are forcing besides 2C
-			Set_opening_data(opening_data["1C"], make_pair(13, 21), 0, 3, Bid(0, 1));
-			Set_opening_data(opening_data["1D"], make_pair(13, 21), 1, 3, Bid(1, 1));
-			Set_opening_data(opening_data["1H"], make_pair(13, 21), 2, 5, Bid(2, 1));
-			Set_opening_data(opening_data["1S"], make_pair(13, 21), 3, 5, Bid(3, 1));
-			Set_opening_data(opening_data["1NT"], make_pair(15, 17), 4, -1, Bid(4, 1));
-			
-			Set_opening_data(opening_data["2C"], make_pair(22, 37), 0, 0, Bid(0, 2));
-			opening_data["2C"].forcing = true; //2C is a forcing opening bid
-			Set_opening_data(opening_data["2D"], make_pair(5, 12), 1, 6, Bid(1, 2));
-			Set_opening_data(opening_data["2H"], make_pair(5, 12), 2, 6, Bid(2, 2));
-			Set_opening_data(opening_data["2S"], make_pair(5, 12), 3, 6, Bid(3, 2));
-			Set_opening_data(opening_data["2NT"], make_pair(20, 21), 4, -1, Bid(4, 2));
-			
-			Set_opening_data(opening_data["3C"], make_pair(5, 12), 0, 7, Bid(0, 3));
-			Set_opening_data(opening_data["3D"], make_pair(5, 12), 1, 7, Bid(1, 3));
-			Set_opening_data(opening_data["3H"], make_pair(5, 12), 2, 7, Bid(2, 3));
-			Set_opening_data(opening_data["3S"], make_pair(5, 12), 3, 7, Bid(3, 3));
-			Set_opening_data(opening_data["3NT"], make_pair(25, 27), 4, -1, Bid(4, 3));
-			
-			Set_opening_data(opening_data["4C"], make_pair(5, 12), 0, 8, Bid(0, 4));
-			Set_opening_data(opening_data["4D"], make_pair(5, 12), 1, 8, Bid(1, 4));
-			Set_opening_data(opening_data["4H"], make_pair(5, 12), 2, 8, Bid(2, 4));
-			Set_opening_data(opening_data["4S"], make_pair(5, 12), 3, 8, Bid(3, 4));
-			
-			Set_opening_data(opening_data["PASS"], make_pair(0,12), -1, -1, Bid(-1, 0));
-		
+void Fill_opening_data(unordered_map<string, Hand_Public> &opening_data)
+{		
+	//don't know which opening bids are forcing besides 2C
+	Set_opening_data(opening_data["1C"], make_pair(13, 21), 0, 3, Bid(0, 1));
+	Set_opening_data(opening_data["1D"], make_pair(13, 21), 1, 3, Bid(1, 1));
+	Set_opening_data(opening_data["1H"], make_pair(13, 21), 2, 5, Bid(2, 1));
+	Set_opening_data(opening_data["1S"], make_pair(13, 21), 3, 5, Bid(3, 1));
+	Set_opening_data(opening_data["1NT"], make_pair(15, 17), 4, -1, Bid(4, 1));
+
+	Set_opening_data(opening_data["2C"], make_pair(22, 37), 0, 0, Bid(0, 2));
+	opening_data["2C"].forcing = true; //2C is a forcing opening bid
+	Set_opening_data(opening_data["2D"], make_pair(5, 12), 1, 6, Bid(1, 2));
+	Set_opening_data(opening_data["2H"], make_pair(5, 12), 2, 6, Bid(2, 2));
+	Set_opening_data(opening_data["2S"], make_pair(5, 12), 3, 6, Bid(3, 2));
+	Set_opening_data(opening_data["2NT"], make_pair(20, 21), 4, -1, Bid(4, 2));
+
+	Set_opening_data(opening_data["3C"], make_pair(5, 12), 0, 7, Bid(0, 3));
+	Set_opening_data(opening_data["3D"], make_pair(5, 12), 1, 7, Bid(1, 3));
+	Set_opening_data(opening_data["3H"], make_pair(5, 12), 2, 7, Bid(2, 3));
+	Set_opening_data(opening_data["3S"], make_pair(5, 12), 3, 7, Bid(3, 3));
+	Set_opening_data(opening_data["3NT"], make_pair(25, 27), 4, -1, Bid(4, 3));
+
+	Set_opening_data(opening_data["4C"], make_pair(5, 12), 0, 8, Bid(0, 4));
+	Set_opening_data(opening_data["4D"], make_pair(5, 12), 1, 8, Bid(1, 4));
+	Set_opening_data(opening_data["4H"], make_pair(5, 12), 2, 8, Bid(2, 4));
+	Set_opening_data(opening_data["4S"], make_pair(5, 12), 3, 8, Bid(3, 4));
+
+	Set_opening_data(opening_data["PASS"], make_pair(0,12), -1, -1, Bid(-1, 0));	
 }
 
 //REQUIRES hand is empty
@@ -177,36 +176,36 @@ static void CheckBids_helper(ifstream &file, string &line, Bid &correct_opening_
 //EFFECTS  obtains south's (the test bid) correct bid for later verification. calls CheckBid_helper to varify that all other bids are consistent (human error check)
 void CheckBids(ifstream &file, string &line, vector< pair<Bid, Bid> > &bid_checks, unordered_map<string, Hand_Public> &opening_data)
 {
-		getline(file, line); //Reads in the "-" line
-		if(line.compare("-") != 0)
-		{
-			cerr << "ERROR: this should be the \"-\" line, but it's not!" << endl;
-			assert(0);
-		}
+	getline(file, line); //Reads in the "-" line
+	if(line.compare("-") != 0)
+	{
+		cerr << "ERROR: this should be the \"-\" line, but it's not!" << endl;
+		assert(0);
+	}
 
-		//Note: later should enum Players {NORTH, EAST, SOUTH, WEST};
-		//to be clear: bid_checks[x].first is X's opening bid, where X \in {NORTH, EAST SOUTH, WEST}
-		//             bid_checks[x].second is X's CORRECT opening bid, where X \in {NORTH, EAST SOUTH, WEST}
-	
-		//check North's bid
-		CheckBids_helper(file, line, bid_checks[0].second, bid_checks[0].first, opening_data, "North");
+	//Note: later should enum Players {NORTH, EAST, SOUTH, WEST};
+	//to be clear: bid_checks[x].first is X's opening bid, where X \in {NORTH, EAST SOUTH, WEST}
+	//             bid_checks[x].second is X's CORRECT opening bid, where X \in {NORTH, EAST SOUTH, WEST}
 
-		//check East's bid
-		CheckBids_helper(file, line, bid_checks[1].second, bid_checks[1].first, opening_data, "East");
+	//check North's bid
+	CheckBids_helper(file, line, bid_checks[0].second, bid_checks[0].first, opening_data, "North");
 
-		//obtain south's correct bid: will check it after we make a bid based on south's hand.
-		getline(file, line); //SHOULD BE THE CORRECT SOUTH BID
-		bid_checks[2].second = opening_data[line].bid_name;
-	
-		//check West's bid
-		CheckBids_helper(file, line, bid_checks[3].second, bid_checks[3].first, opening_data, "West");
-	
-		getline(file, line); //should be the "---" line
-		if(line.compare("---") != 0)
-		{
-			cerr << "ERROR: this should be the \"---\" line, but it's not!" << endl;
-			assert(0);
-		}
+	//check East's bid
+	CheckBids_helper(file, line, bid_checks[1].second, bid_checks[1].first, opening_data, "East");
+
+	//obtain south's correct bid: will check it after we make a bid based on south's hand.
+	getline(file, line); //SHOULD BE THE CORRECT SOUTH BID
+	bid_checks[2].second = opening_data[line].bid_name;
+
+	//check West's bid
+	CheckBids_helper(file, line, bid_checks[3].second, bid_checks[3].first, opening_data, "West");
+
+	getline(file, line); //should be the "---" line
+	if(line.compare("---") != 0)
+	{
+		cerr << "ERROR: this should be the \"---\" line, but it's not!" << endl;
+		assert(0);
+	}
 }
 
 //REQUIRES south's hand is empty
@@ -222,31 +221,31 @@ void ReadFile(ifstream &file,
 			  int &bidder, 
 			  vector<Hand> &hands)
 {
-			getline(file, line); //this reads in the description of the hand
-			cout<< "HAND " << total_num_hands - number_hands <<  " DESCRIPTION:\n\n " << line << "\n\n";
-			getline(file, line); //this reads in a blank line.
-			
-			
-			//Read in north_opening
-			ReadBid(file, line, bid_checks[0].first, pub_vec[bidder], opening_data, bidder);
-			
-			//Read in east_opening
-			ReadBid(file, line, bid_checks[1].first, pub_vec[bidder], opening_data, bidder);
-		
-			//Read in south's hand
-			for(int ctr = 0; ctr < 4; ctr++)
-			{
-				getline(file, line);
-				ReadLine(line, hands[bidder]);
-			}
-			bidder++;
-		
-			//Read in east_opening
-			ReadBid(file, line, bid_checks[3].first, pub_vec[bidder], opening_data, bidder);
-			
-			
-			//verify that the bids were read in correctly, and that the file was formatted correctly
-			CheckBids(file, line, bid_checks, opening_data);
+	getline(file, line); //this reads in the description of the hand
+	cout<< "HAND " << total_num_hands - number_hands <<  " DESCRIPTION:\n\n " << line << "\n\n";
+	getline(file, line); //this reads in a blank line.
 
-			number_hands--;
+
+	//Read in north_opening
+	ReadBid(file, line, bid_checks[0].first, pub_vec[bidder], opening_data, bidder);
+
+	//Read in east_opening
+	ReadBid(file, line, bid_checks[1].first, pub_vec[bidder], opening_data, bidder);
+
+	//Read in south's hand
+	for(int ctr = 0; ctr < 4; ctr++)
+	{
+		getline(file, line);
+		ReadLine(line, hands[bidder]);
+	}
+	bidder++;
+
+	//Read in east_opening
+	ReadBid(file, line, bid_checks[3].first, pub_vec[bidder], opening_data, bidder);
+
+
+	//verify that the bids were read in correctly, and that the file was formatted correctly
+	CheckBids(file, line, bid_checks, opening_data);
+
+	number_hands--;
 }

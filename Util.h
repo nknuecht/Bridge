@@ -3,8 +3,6 @@
 
 /* Util.h
  *
- * 
- *
  * by Nicholas Nuechterlein
  * nknuecht@umich.edu
  * 2015-03-02
@@ -65,9 +63,5 @@ void ReadFile(std::ifstream &file,
 			  std::vector<Hand_Public> &pub_vec, 
 			  int &bidder, 
 			  std::vector<Hand> &hands);
-			  
-			  
-
-
 
 #endif

@@ -18,13 +18,11 @@
 #include <queue>
 #include <iostream>
 
-enum Player{ME, NEXT, PARTNER, PREV}; //don't know where these should go (i.e. in what file)
-
-
+enum Player {ME, NEXT, PARTNER, PREV}; //don't know where these should go (i.e. in what file)
 
 
 //if possible, would like to get rid of Bid last_bid from struct (we include in each of the four different suits in suit_pq, and it's the same for each => there are reducdancies)
-struct Suit_Length{
+struct Suit_Length {
 	int suit;
 	int length;
 	Bid last_bid; //how do i get this into the constructor?
@@ -34,76 +32,69 @@ struct Suit_Length{
 };
 
 //Comparator Class
-class CompSuits{
-	public:
+class CompSuits {
 
-	bool operator()(Suit_Length& suit_length1, Suit_Length& suit_length2){
-			//this might be backwards, but i'm trying to return false (meaning putting at the top) the longest suit. (i think this is right now)
-			//probably should have a check that ensures they aren't the same suits.
-			//something to deal with NT or other invalid suit ints or length ints or bids.
+public:
 
+	bool operator()(Suit_Length& suit_length1, Suit_Length& suit_length2)
+	{
+		//probably should have a check that ensures they aren't the same suits.
+		//something to deal with NT or other invalid suit ints or length ints or bids.
 
-			if(suit_length1.length > suit_length2.length)
-				return false;
-			else if(suit_length1.length < suit_length2.length)
-				return true;
-			
-			else // suits are of same length
+		if(suit_length1.length > suit_length2.length)
+			return false;
+		else if(suit_length1.length < suit_length2.length)
+			return true;
+	
+		else // suits are of same length
+		{
+			if(suit_length1.length > 4)  //5 are 6 combined.
 			{
-				if(suit_length1.length > 4)  //5 are 6 combined.
-				{
-					if(suit_length1.suit > suit_length2.suit)
-						return false;
-					else
-						return true;
-				}
-				//want to return the suit that can be bid at the lowest level.
-				else if(suit_length1.length < 5  && suit_length2.length < 5) //4 and lower can be combined.
-				{
+				if(suit_length1.suit > suit_length2.suit)
+					return false;
+				else
+					return true;
+			}
+			//want to return the suit that can be bid at the lowest level.
+			else if(suit_length1.length < 5  && suit_length2.length < 5) //4 and lower can be combined.
+			{
 
-					Bid last_bid = suit_length1.last_bid;
-					int bid_level1 = -1;  int bid_level2 = -1;
-					
-					if(suit_length1.suit <= suit_length1.last_bid.suit) //bid at higher level
-						bid_level1 = last_bid.level*4 + suit_length1.suit;
-					else //bid at current level
-						bid_level1 = (last_bid.level-1)*4 + suit_length1.suit; //have to be careful about levels being 0.  passes, doubles, redobles, errors.
-						
-					if(suit_length2.suit <= suit_length1.last_bid.suit)
-						bid_level2 = last_bid.level*4 + suit_length2.suit;
-					else
-						bid_level2 = (last_bid.level-1)*4 + suit_length2.suit; //have to be careful about levels being 0.  passes, doubles, redobles, errors.
+				Bid last_bid = suit_length1.last_bid;
+				int bid_level1 = -1;  int bid_level2 = -1;
+			
+				if(suit_length1.suit <= suit_length1.last_bid.suit) //bid at higher level
+					bid_level1 = last_bid.level*4 + suit_length1.suit;
+				else //bid at current level
+					bid_level1 = (last_bid.level-1)*4 + suit_length1.suit; //have to be careful about levels being 0.  passes, doubles, redobles, errors.
+				
+				if(suit_length2.suit <= suit_length1.last_bid.suit)
+					bid_level2 = last_bid.level*4 + suit_length2.suit;
+				else
+					bid_level2 = (last_bid.level-1)*4 + suit_length2.suit; //have to be careful about levels being 0.  passes, doubles, redobles, errors.
 
-					if(bid_level1 < bid_level2)
-						return false;
-					else if(bid_level1 > bid_level2)
-						return true;
-					else
-					{
-						std::cerr << "ERROR: The next bid for two different suits is the same!\n";
-						std::cerr << "       bid_level1 = " << bid_level1 << "\n";
-						std::cerr << "       bid_level2 = " << bid_level2 << "\n";
-						std::cerr << "       The last bid was " << last_bid.level << " of suit " << last_bid.suit << "\n";
-						std::cerr << "       suit_length1 is suit " << suit_length1.suit << " of length " << suit_length1.length << "\n";
-						std::cerr << "       suit_length2 is suit " << suit_length2.suit << " of length " << suit_length2.length << "\n";
-						assert(0);
-					}
-
-				}
+				if(bid_level1 < bid_level2)
+					return false;
+				else if(bid_level1 > bid_level2)
+					return true;
 				else
 				{
+					//use execption to consense this.
+					std::cerr << "ERROR: The next bid for two different suits is the same!\n";
+					std::cerr << "       bid_level1 = " << bid_level1 << "\n";
+					std::cerr << "       bid_level2 = " << bid_level2 << "\n";
+					std::cerr << "       The last bid was " << last_bid.level << " of suit " << last_bid.suit << "\n";
+					std::cerr << "       suit_length1 is suit " << suit_length1.suit << " of length " << suit_length1.length << "\n";
+					std::cerr << "       suit_length2 is suit " << suit_length2.suit << " of length " << suit_length2.length << "\n";
 					assert(0);
 				}
-
 			}
-
-			
+			else
+			{
+				assert(0);
+			}
+		}
 	}
 };
-
-
-
-
 
 
 void Print_bid(Bid &bid);
@@ -136,22 +127,16 @@ void Double_jump_raise(Bid &response, Hand_Public &hand_data, Bid partner_bid);
 void Limit_raise(Bid &response, Hand_Public &hand_data, Bid partner_bid);
 
 
-
 //REQUIRES
 //MODIFIES response, hand_data, suit_pq
 //EFFECTS  Introduces longest new suit, promises 12+ points and 4+ cards in new suit.  Game forcing bid opposite opener.
-void New_suit_intro(Bid &response, 
-					Hand_Public &hand_data, 
-					Bid partner_bid,
-					std::priority_queue<Suit_Length, std::vector<Suit_Length>, CompSuits> &suit_pq);
+void New_suit_intro(Bid &response, Hand_Public &hand_data, Bid partner_bid, std::priority_queue<Suit_Length, std::vector<Suit_Length>, CompSuits> &suit_pq);
+
+
 //REQUIRES
 //MODIFIES hand, response, hand_data, suit_pq
 //EFFECTS  Reevaluates short points and, based on points, performs either a single raise (6-9), limit raise (10-11), double jump raise (6-9 and length), or 		  introduces a new suit (12+).					
-void Support_major(Hand &hand, 
-				   Bid &response, 
-				   Hand_Public &hand_data, 
-				   Bid &partner_bid,
-				   std::priority_queue<Suit_Length, std::vector<Suit_Length>, CompSuits> &suit_pq);
+void Support_major(Hand &hand, Bid &response, Hand_Public &hand_data, Bid &partner_bid, std::priority_queue<Suit_Length, std::vector<Suit_Length>, CompSuits> &suit_pq);
 
 
 //REQUIRES
@@ -217,19 +202,12 @@ bool Check_2NT_3NT_raise(Hand &hand, std::vector<Hand_Public> &pub_vec, int bidd
 //REQUIRES: hand is has been checked for 2NT or 3NT before function is called.
 //MODIFIES response, hand_data
 //EFFECTS  Assigns response a bid of either 2NT or 3NT depending on points.  records information these bids promise in hand_data
-void NT_Jump_Res(Hand &hand, 
-				   Bid &response, 
-				   Hand_Public &hand_data, 
-				   Bid &partner_bid);
+void NT_Jump_Res(Hand &hand, Bid &response, Hand_Public &hand_data, Bid &partner_bid);
 
 //REQUIRES
 //MODIFIES response, hand_data
 //EFFECTS  Reevaluates short points and, based on points, performs either a single raise (6-9), limit raise (10-11), double jump raise (6-9 and length), or 		  introduces a new suit (12+).				   
-void Support_minor(Hand &hand, 
-				   Bid &response, 
-				   Hand_Public &hand_data, 
-				   Bid &partner_bid, 
-				   std::priority_queue<Suit_Length, std::vector<Suit_Length>, CompSuits> &suit_pq);
+void Support_minor(Hand &hand, Bid &response, Hand_Public &hand_data, Bid &partner_bid,  std::priority_queue<Suit_Length, std::vector<Suit_Length>, CompSuits> &suit_pq);
 
 //REQUIRES
 //MODIFIES opening_bid, hand_data
@@ -248,7 +226,6 @@ void NT_Opener(Bid &opening_bid, Hand_Public &hand_data, int level, std::pair<in
 //MODIFIES 
 //EFFECTS  returns longest suit and its length, in suit order.
 std::pair<int, int> Longest_Suit(std::vector<Hand> &hands, int bidder);
-
 
 
 //feel like this function can be used in count hcp up above.
@@ -274,23 +251,6 @@ void Bid_long_suit(Hand &hand,
 				   Bid &response, 
 				   Hand_Public &hand_data, 
 				   Bid &partner_bid, 
-				   std::priority_queue<Suit_Length, std::vector<Suit_Length>, CompSuits> &suit_pq);
-
-
-
-
-
-
-
-
-
-
-
-//these two functions were never called.  I deleted them.
-//void Four_card_major(std::vector<Hand> &hands,  Bid &response, std::vector<Hand_Public> &pub_vec, Bid &partner_bid, int bidder);
-//void Five_card_minor_2level(Hand &hand,  Bid &response,  Hand_Public &hand_data,  Bid &partner_bid);
-
-
-
+                   std::priority_queue<Suit_Length, std::vector<Suit_Length>, CompSuits> &suit_pq);
 
 #endif

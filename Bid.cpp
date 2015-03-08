@@ -5,7 +5,7 @@
 #include "Deck.h"
 #include "Hand.h"
 #include "Bid.h"
-//#include "Util.h"
+
 
 
 
@@ -23,13 +23,11 @@
 using namespace std;
 
 
-
-
-
 //REQUIRES 
 //MODIFIES none.
 //EFFECTS  prints bid level and strain i.e. 1C
-void Print_bid(Bid &bid){
+void Print_bid(Bid &bid)
+{
 	if(bid.suit == -1)
 		cout << "PASS" << endl;
 	else if(bid.suit < 0 || bid.suit > 4)
@@ -45,7 +43,8 @@ void Print_bid(Bid &bid){
 //REQUIRES Player has bid (or else we get what?)
 //MODIFIES none.
 //EFFECTS  Displays information promised by bidder's latest bid.
-void Interpret_bid(vector<Hand_Public> &pub_vec, int bidder){
+void Interpret_bid(vector<Hand_Public> &pub_vec, int bidder)
+{
 	//should have an input (either in pub_vec, or in hand or hands) that has the players's name . . . but i'll fix that later.
 	if(bidder == 0) //really need to change these to names rather than numbers so I'm not just always hardcoding them . . . 
 		cout << "North's ";
@@ -94,7 +93,8 @@ void Interpret_bid(vector<Hand_Public> &pub_vec, int bidder){
 //REQUIRES
 //MODIFIES none.
 //EFFECTS  Given the last bid and a suit, returns the lowest possible next of this suit.
-Bid Next_bid(int suit, Bid &last_bid){
+Bid Next_bid(int suit, Bid &last_bid)
+{
 	Bid next_bid;
 	next_bid.suit = suit;
 	if(suit <= last_bid.suit)
@@ -111,22 +111,21 @@ Bid Next_bid(int suit, Bid &last_bid){
 //REQUIRES
 //MODIFIES response, hand_data
 //EFFECTS  Sets response to PASS and encodes PASS promises into pub_vec
-void Pass(Bid &response, Hand_Public &hand_data, int level, pair<int, int> points){
-	
+void Pass(Bid &response, Hand_Public &hand_data, int level, pair<int, int> points)
+{
 	response.suit = -1;
 	response.level = level; // this might be useful
 	hand_data.point_range = points;
 	hand_data.hcp_range = points; //might not need this
 	hand_data.passed = true;
-	
 }
 
 
 //REQUIRES
 //MODIFIES response, hand_data
 //EFFECTS  Sets response to a specificed raise of partner's suit.  also promises a specified min length for support in partner's suit.
-static void Raise_helper(Bid &response, Hand_Public &hand_data, Bid partner_bid, int raise, pair<int, int> points, int maj_sup) {
-	
+static void Raise_helper(Bid &response, Hand_Public &hand_data, Bid partner_bid, int raise, pair<int, int> points, int maj_sup) 
+{
 	response.suit = partner_bid.suit;
 	response.level = partner_bid.level + raise;
 
@@ -136,27 +135,29 @@ static void Raise_helper(Bid &response, Hand_Public &hand_data, Bid partner_bid,
 	else if(partner_bid.suit == 0 || partner_bid.suit == 1)
 		hand_data.suit_length[partner_bid.suit] = maj_sup+1; //promises maj_sup+1 support responding to a minor.
 	hand_data.passed = false;
-
 }
 
 //REQUIRES
 //MODIFIES response, hand_data
 //EFFECTS  Raises partner's suit by 1 level, promises 6-9 points and 3+ support responding to a major, 4+ support responding to a minor.
-void Single_raise(Bid &response, Hand_Public &hand_data, Bid partner_bid){
+void Single_raise(Bid &response, Hand_Public &hand_data, Bid partner_bid)
+{
 	Raise_helper(response, hand_data, partner_bid, 1, make_pair(6,9), 3);
 }
 
 //REQUIRES
 //MODIFIES response, hand_data
 //EFFECTS  Raises partner's suit by 3 levels, promises 6-9 points and 5+ support responding to a major, 6+ support responding to a minor.
-void Double_jump_raise(Bid &response, Hand_Public &hand_data, Bid partner_bid){
+void Double_jump_raise(Bid &response, Hand_Public &hand_data, Bid partner_bid)
+{
 	Raise_helper(response, hand_data, partner_bid, 3, make_pair(6,9), 5);
 }
 
 //REQUIRES
 //MODIFIES response, hand_data
 //EFFECTS  Raises partner's suit by 2 levels, promises 10-11 points and 3+ support responding to a major, 4+ support responding to a minor.
-void Limit_raise(Bid &response, Hand_Public &hand_data, Bid partner_bid){
+void Limit_raise(Bid &response, Hand_Public &hand_data, Bid partner_bid)
+{
 	Raise_helper(response, hand_data, partner_bid, 2, make_pair(10,11), 3);
 	hand_data.invitational = true;
 }
@@ -165,8 +166,8 @@ void Limit_raise(Bid &response, Hand_Public &hand_data, Bid partner_bid){
 //REQUIRES
 //MODIFIES response, hand_data, suit_pq
 //EFFECTS  Introduces longest new suit, promises 12+ points and 4+ cards in new suit.  Game forcing bid opposite opener.
-void New_suit_intro(Bid &response, Hand_Public &hand_data, Bid partner_bid, priority_queue<Suit_Length, vector<Suit_Length>, CompSuits> &suit_pq){
-									
+void New_suit_intro(Bid &response, Hand_Public &hand_data, Bid partner_bid, priority_queue<Suit_Length, vector<Suit_Length>, CompSuits> &suit_pq)
+{							
 	Suit_Length long_suit = suit_pq.top(); //this should be guartented to have 4+ card in it.
 	//next if can be deleted
 	if(long_suit.length < 4)
@@ -206,12 +207,8 @@ void New_suit_intro(Bid &response, Hand_Public &hand_data, Bid partner_bid, prio
 //REQUIRES
 //MODIFIES hand, response, hand_data, suit_pq
 //EFFECTS  Reevaluates short points and, based on points, performs either a single raise (6-9), limit raise (10-11), double jump raise (6-9 and length), or 		  introduces a new suit (12+).
-void Support_major(Hand &hand, 
-				   Bid &response, 
-				   Hand_Public &hand_data, 
-				   Bid &partner_bid,
-				   priority_queue<Suit_Length, vector<Suit_Length>, CompSuits> &suit_pq){
-				   
+void Support_major(Hand &hand, Bid &response, Hand_Public &hand_data, Bid &partner_bid, priority_queue<Suit_Length, vector<Suit_Length>, CompSuits> &suit_pq)
+{			   
 	//revaluate to short points.
 	Get_short_points(hand, static_cast<Suit>(partner_bid.suit));
 	int short_points = hand.hc_points + hand.dis_points;
@@ -242,11 +239,11 @@ void Support_major(Hand &hand,
 //MODIFIES response, pub_vec[bidder]
 //EFFECTS  makes response with priority (1) new 4-card major or 5-card minor (2) 2NT or 3NT (3) a suitable 1NT, (4) 1C -> 1D, (5) support of minor, (6) 1NT
 void Minor_suit_response(Hand &hand, 
-						vector<Hand_Public> &pub_vec, 
-						Bid &response, 
-						int bidder, 
-						Bid &partner_bid, 
-						priority_queue<Suit_Length, vector<Suit_Length>, CompSuits> &suit_pq)
+						 vector<Hand_Public> &pub_vec, 
+						 Bid &response, 
+						 int bidder, 
+						 Bid &partner_bid, 
+						 priority_queue<Suit_Length, vector<Suit_Length>, CompSuits> &suit_pq)
 {
 		if(Check_4CM_5Cm(hand, partner_bid.suit)) // have a 4-card major or a 5-card minor which we will bid.
 		{
@@ -303,12 +300,11 @@ void Unsuported_major_response(Hand &hand,
 }
 
 
-
-
 //REQUIRES
 //MODIFIES response, hand_data
 //EFFECTS  sets response to specified suit and level, sets hand_data to specified point range and length of strain bid.
-void General_response(Bid &response, Hand_Public &hand_data, int suit, int level, pair<int, int> points, int suit_support){
+void General_response(Bid &response, Hand_Public &hand_data, int suit, int level, pair<int, int> points, int suit_support)
+{
 	response.suit = suit;
 	response.level = level;
 
@@ -316,6 +312,7 @@ void General_response(Bid &response, Hand_Public &hand_data, int suit, int level
 	hand_data.suit_length[suit] = suit_support;
 	hand_data.passed = false;
 }
+
 
 //REQUIRES suit be valid and not NT
 //MODIFIES 
@@ -327,7 +324,6 @@ bool Check_4CM_5Cm(Hand &hand, int suit)
 		cerr << "ERROR: invalid suit" << endl;
 		assert(0);
 	}
-	
 	
 	if((hand.cards_held[CLUBS].size() > 4 && suit <= CLUBS) || (hand.cards_held[CLUBS].size() > 4 && ((hand.hc_points + hand.dis_points > 9))))
 	{
@@ -457,8 +453,8 @@ void NT_Jump_Res(Hand &hand, Bid &response, Hand_Public &hand_data, Bid &partner
 //REQUIRES
 //MODIFIES response, hand_data
 //EFFECTS  Reevaluates short points and, based on points, performs either a single raise (6-9), limit raise (10-11), double jump raise (6-9 and length), or 		  introduces a new suit (12+).
-void Support_minor(Hand &hand, Bid &response, Hand_Public &hand_data, Bid &partner_bid, priority_queue<Suit_Length, vector<Suit_Length>, CompSuits> &suit_pq){
-
+void Support_minor(Hand &hand, Bid &response, Hand_Public &hand_data, Bid &partner_bid, priority_queue<Suit_Length, vector<Suit_Length>, CompSuits> &suit_pq)
+{
 	Get_short_points(hand, static_cast<Suit>(partner_bid.suit));  
 	int short_points = hand.hc_points + hand.dis_points;
 	cout << "this hand now has " << short_points << " short points after reevaluating short points!" << endl;
@@ -493,20 +489,22 @@ void Support_minor(Hand &hand, Bid &response, Hand_Public &hand_data, Bid &partn
 //REQUIRES
 //MODIFIES opening_bid, hand_data
 //EFFECTS  assigns opening_bid 1NT and recorded 6-9 points, without promisig balance or stoppers
-void NT_1Res(Bid &response, Hand_Public &hand_data, Bid &partner_bid){			  	
-		NT_response(response, hand_data, partner_bid.level, make_pair(6,9), false, false);
+void NT_1Res(Bid &response, Hand_Public &hand_data, Bid &partner_bid)
+{			  	
+	NT_response(response, hand_data, partner_bid.level, make_pair(6,9), false, false);
 }
 					   
 
 //REQUIRES
 //MODIFIES opening_bid, hand_data
 //EFFECTS  assigns opening_bid a NT opener and recorded the bid's promises in hand_data
-void NT_Opener(Bid &opening_bid, Hand_Public &hand_data, int level, pair<int, int> points){
-					opening_bid.suit = 4;
-					opening_bid.level = level;
-					hand_data.hcp_range = points;
-					hand_data.balanced = true;
-					hand_data.suit_length = {2, 2, 2, 2};
+void NT_Opener(Bid &opening_bid, Hand_Public &hand_data, int level, pair<int, int> points)
+{
+	opening_bid.suit = 4;
+	opening_bid.level = level;
+	hand_data.hcp_range = points;
+	hand_data.balanced = true;
+	hand_data.suit_length = {2, 2, 2, 2};
 }
 
 
@@ -514,27 +512,28 @@ void NT_Opener(Bid &opening_bid, Hand_Public &hand_data, int level, pair<int, in
 //REQUIRES
 //MODIFIES 
 //EFFECTS  returns longest suit and its length, in suit order.
-pair<int, int> Longest_suit(Hand &hand){
-				//question: when do i use this, why, and why not the pq?
-				int suit_length = hand.cards_held[SPADES].size();
-				int suit = 3;
+pair<int, int> Longest_suit(Hand &hand)
+{
+	//question: when do i use this, why, and why not the pq?
+	int suit_length = hand.cards_held[SPADES].size();
+	int suit = 3;
 
-				if(hand.cards_held[HEARTS].size() > suit_length)
-				{
-					suit = 2;
-					suit_length = hand.cards_held[HEARTS].size();
-				}
-				if(hand.cards_held[DIAMONDS].size() > suit_length)
-				{
-					suit = 1;
-					suit_length = hand.cards_held[DIAMONDS].size();
-				}
-				if(hand.cards_held[CLUBS].size() > suit_length)
-				{
-					suit = 0;
-					suit_length = hand.cards_held[CLUBS].size();
-				}
-				return make_pair(suit, suit_length);
+	if(hand.cards_held[HEARTS].size() > suit_length)
+	{
+		suit = 2;
+		suit_length = hand.cards_held[HEARTS].size();
+	}
+	if(hand.cards_held[DIAMONDS].size() > suit_length)
+	{
+		suit = 1;
+		suit_length = hand.cards_held[DIAMONDS].size();
+	}
+	if(hand.cards_held[CLUBS].size() > suit_length)
+	{
+		suit = 0;
+		suit_length = hand.cards_held[CLUBS].size();
+	}
+	return make_pair(suit, suit_length);
 }
 
 
@@ -544,161 +543,158 @@ pair<int, int> Longest_suit(Hand &hand){
 //EFFECTS  Determines number of hcp points in specified suit
 int Suit_strength(Hand &hand, int suit)
 {
-		//might want to check to make sure suit is a valid int.	
-		int suit_count = 0;
-		for(int i = 0; i < hand.cards_held[suit].size(); i++) //loops through desired suit of hand
-		{	
-				//checks for facecards within desired suit.
-				if(hand.cards_held[suit][i].rank == ACE) 
-					suit_count += 4;
-				else if(hand.cards_held[suit][i].rank == KING)
-					suit_count += 3;
-				else if(hand.cards_held[suit][i].rank == QUEEN)
-					suit_count += 2;
-				else if(hand.cards_held[suit][i].rank == JACK)
-					suit_count += 1;
-		}
-		return suit_count;
+	//might want to check to make sure suit is a valid int.	
+	int suit_count = 0;
+	for(int i = 0; i < hand.cards_held[suit].size(); i++) //loops through desired suit of hand
+	{	
+			//checks for facecards within desired suit.
+			if(hand.cards_held[suit][i].rank == ACE) 
+				suit_count += 4;
+			else if(hand.cards_held[suit][i].rank == KING)
+				suit_count += 3;
+			else if(hand.cards_held[suit][i].rank == QUEEN)
+				suit_count += 2;
+			else if(hand.cards_held[suit][i].rank == JACK)
+				suit_count += 1;
+	}
+	return suit_count;
 }
 
 
 //REQUIRES
 //MODIFIES opening_bid, hand_data
 //EFFECTS  Determines opening_bid and stores the information it promises in hand_data.
-void Opening_Bid(Hand &hand, //this is the bidding hand
-				 Bid &opening_bid, //this will be the reported opening bid
-				 Hand_Public &hand_data) //tells where to put the public information from the determine bid
+void Opening_Bid(Hand &hand, Bid &opening_bid, Hand_Public &hand_data)
 {
+	int hc_points = hand.hc_points;
+	int clubs = hand.cards_held[CLUBS].size();
+	int diamonds = hand.cards_held[DIAMONDS].size();
+	int hearts = hand.cards_held[HEARTS].size();
+	int spades = hand.cards_held[SPADES].size();
 
-		int hc_points = hand.hc_points;
-		int clubs = hand.cards_held[CLUBS].size();
-		int diamonds = hand.cards_held[DIAMONDS].size();
-		int hearts = hand.cards_held[HEARTS].size();
-		int spades = hand.cards_held[SPADES].size();
-
-		//OPENING BID
-		if(hand.hc_points + hand.dis_points > 12)
+	//OPENING BID
+	if(hand.hc_points + hand.dis_points > 12)
+	{
+		//check 1NT and 2NT
+		if(hand.hc_points + hand.dis_points < 22 || (hand.hc_points < 22 && hand.dis_points == 1))
 		{
-			//check 1NT and 2NT
-			if(hand.hc_points + hand.dis_points < 22 || (hand.hc_points < 22 && hand.dis_points == 1))
+			if(hand.dis_points < 2  && ((hand.hc_points > 14 && hand.hc_points < 18) || hand.hc_points == 20 || hand.hc_points == 21))
 			{
-				if(hand.dis_points < 2  && ((hand.hc_points > 14 && hand.hc_points < 18) || hand.hc_points == 20 || hand.hc_points == 21))
+				if(hand.hc_points > 14 && hand.hc_points < 18) // should add funtion to this that checks for stoppers
 				{
-					if(hand.hc_points > 14 && hand.hc_points < 18) // should add funtion to this that checks for stoppers
-					{
-						//1NT Opener
-						NT_Opener(opening_bid, hand_data, 1, make_pair(15,17));	
-					}
-					else
-					{
-						//2NT Opener
-						NT_Opener(opening_bid, hand_data, 2, make_pair(20,21));	
-					}
-				}
-				//might open with spades with 6 spades and 7 of a minor.
-				else if(spades > 4 && spades >= hearts && spades >= diamonds && spades >= clubs)
-				{
-					//1S Opener
-					General_response(opening_bid, hand_data, 3, 1, make_pair(13,21), 5);
-				}
-				else if(hearts > 4 && hearts >= diamonds && hearts >= clubs)
-				{
-					//1H Opener
-					General_response(opening_bid, hand_data, 2, 1, make_pair(13,21), 5);
-				}
-				//at this point we have not found a 5 card major (w/o six-card minor)
-				else if(clubs == 3 && diamonds == 3) //not sure these three 1C, 1D, 1C all make sense . . . 
-				{
-					//1C Opener (specific)
-					General_response(opening_bid, hand_data, 0, 1, make_pair(13,21), 3);
-				}
-				else if(diamonds >= clubs)
-				{
-					//1D Opener (general)
-					General_response(opening_bid, hand_data, 1, 1, make_pair(13,21), 3);
-				}
-				else if(clubs >= diamonds)
-				{
-					//1C Opener (general)
-					General_response(opening_bid, hand_data, 0, 1, make_pair(13,21), 3);
+					//1NT Opener
+					NT_Opener(opening_bid, hand_data, 1, make_pair(15,17));	
 				}
 				else
 				{
-					cerr << "ERROR: this is a case where we have an opening hand, but couldn't find something to open." << endl;
-					assert(0);
+					//2NT Opener
+					NT_Opener(opening_bid, hand_data, 2, make_pair(20,21));	
 				}
 			}
-			else // big hands
+			//might open with spades with 6 spades and 7 of a minor.
+			else if(spades > 4 && spades >= hearts && spades >= diamonds && spades >= clubs)
 			{
-				if(hand.dis_points < 2  && (hc_points > 24 && hc_points < 28))
-				{
-					//3NT Opener
-					NT_Opener(opening_bid, hand_data, 3, make_pair(25,27));			
-				}
-				else
-				{
-					//2 Club Opener
-					General_response(opening_bid, hand_data, 0, 2, make_pair(22,37), 0);
-				}			
+				//1S Opener
+				General_response(opening_bid, hand_data, 3, 1, make_pair(13,21), 5);
+			}
+			else if(hearts > 4 && hearts >= diamonds && hearts >= clubs)
+			{
+				//1H Opener
+				General_response(opening_bid, hand_data, 2, 1, make_pair(13,21), 5);
+			}
+			//at this point we have not found a 5 card major (w/o six-card minor)
+			else if(clubs == 3 && diamonds == 3) //not sure these three 1C, 1D, 1C all make sense . . . 
+			{
+				//1C Opener (specific)
+				General_response(opening_bid, hand_data, 0, 1, make_pair(13,21), 3);
+			}
+			else if(diamonds >= clubs)
+			{
+				//1D Opener (general)
+				General_response(opening_bid, hand_data, 1, 1, make_pair(13,21), 3);
+			}
+			else if(clubs >= diamonds)
+			{
+				//1C Opener (general)
+				General_response(opening_bid, hand_data, 0, 1, make_pair(13,21), 3);
+			}
+			else
+			{
+				cerr << "ERROR: this is a case where we have an opening hand, but couldn't find something to open." << endl;
+				assert(0);
 			}
 		}
-
-		else //fewer than 12 points.
+		else // big hands
 		{
-			//i should pass the pq here instead and just pop off the top suit.
-			pair<int, int> longest_suit = Longest_suit(hand);
-			int suit = longest_suit.first;
-			int suit_length = longest_suit.second;
-			
-			if(suit_length > 5)
+			if(hand.dis_points < 2  && (hc_points > 24 && hc_points < 28))
 			{
-				//suit_count is number of points in the longest suit.
-				int suit_count = Suit_strength(hand, suit);
+				//3NT Opener
+				NT_Opener(opening_bid, hand_data, 3, make_pair(25,27));			
+			}
+			else
+			{
+				//2 Club Opener
+				General_response(opening_bid, hand_data, 0, 2, make_pair(22,37), 0);
+			}			
+		}
+	}
 
-				if(suit_count > 4) 
-				{	
+	else //fewer than 12 points.
+	{
+		//i should pass the pq here instead and just pop off the top suit.
+		pair<int, int> longest_suit = Longest_suit(hand);
+		int suit = longest_suit.first;
+		int suit_length = longest_suit.second;
+		
+		if(suit_length > 5)
+		{
+			//suit_count is number of points in the longest suit.
+			int suit_count = Suit_strength(hand, suit);
 
-					if(suit_length == 6)
-					{
-						if(suit == 0)
-						{
-							//2 Club Pass
-							Pass(opening_bid, hand_data, 0, make_pair(0, 12));
-						}	
-						else if(suit > 0 && suit < 4) //don't make public the 5 points in trump
-						{
-							//2D, 2H, 2S Weak Openers
-							General_response(opening_bid, hand_data, suit, 2, make_pair(5,12), suit_length);
-						}	
-						else
-						{
-							cerr << "ERROR: we have an out-of-bounds suit in the weak 2 openers." << endl;
-							assert(0);
-						}
-					}
+			if(suit_count > 4) 
+			{	
 
-					else if(suit_length == 7)
+				if(suit_length == 6)
+				{
+					if(suit == 0)
 					{
-						//3C, 3D, 3H, 3S Prempts
-						General_response(opening_bid, hand_data, suit, 3, make_pair(5,12), suit_length);
-					}
-					else if(suit_length > 7)
+						//2 Club Pass
+						Pass(opening_bid, hand_data, 0, make_pair(0, 12));
+					}	
+					else if(suit > 0 && suit < 4) //don't make public the 5 points in trump
 					{
-						//4C, 4D, 4H, 4S Prempts
-						//note: can't reveal real suit count--that would be table-talk.  instead limit it to 8.
-						General_response(opening_bid, hand_data, suit, 4, make_pair(5,12), 8);
+						//2D, 2H, 2S Weak Openers
+						General_response(opening_bid, hand_data, suit, 2, make_pair(5,12), suit_length);
+					}	
+					else
+					{
+						cerr << "ERROR: we have an out-of-bounds suit in the weak 2 openers." << endl;
+						assert(0);
 					}
 				}
-				else // PASS: we have a long enough suit for a pre-empt, but it's not a strong enough suit.
+
+				else if(suit_length == 7)
 				{
-					Pass(opening_bid, hand_data, 0, make_pair(0, 12));
+					//3C, 3D, 3H, 3S Prempts
+					General_response(opening_bid, hand_data, suit, 3, make_pair(5,12), suit_length);
+				}
+				else if(suit_length > 7)
+				{
+					//4C, 4D, 4H, 4S Prempts
+					//note: can't reveal real suit count--that would be table-talk.  instead limit it to 8.
+					General_response(opening_bid, hand_data, suit, 4, make_pair(5,12), 8);
 				}
 			}
-			else // PASS: we do not have a long enough suit for a preempt, and we don't have enough points to open.
+			else // PASS: we have a long enough suit for a pre-empt, but it's not a strong enough suit.
 			{
 				Pass(opening_bid, hand_data, 0, make_pair(0, 12));
 			}
 		}
+		else // PASS: we do not have a long enough suit for a preempt, and we don't have enough points to open.
+		{
+			Pass(opening_bid, hand_data, 0, make_pair(0, 12));
+		}
+	}
 }
 
 //REQUIRES
@@ -716,11 +712,7 @@ bool Player_bid(std::vector<Hand_Public> &pub_vec, int bidder, Player player)
 //REQUIRES
 //MODIFIES response, hand_data, suit_pq
 //EFFECTS  Determines longest bidable suit and bids it, bypassing 4-card minors in favor of 4-card majors
-void Bid_long_suit(Hand &hand, 
-				   Bid &response, 
-				   Hand_Public &hand_data, 
-				   Bid &partner_bid, 
-				   priority_queue<Suit_Length, vector<Suit_Length>, CompSuits> &suit_pq)
+void Bid_long_suit(Hand &hand, Bid &response, Hand_Public &hand_data, Bid &partner_bid, priority_queue<Suit_Length, vector<Suit_Length>, CompSuits> &suit_pq)
 {
 	//this while loop determines the longest bidable suit
 	Suit_Length long_suit = suit_pq.top();
@@ -760,140 +752,4 @@ void Bid_long_suit(Hand &hand,
 			Support_minor(hand, response, hand_data, partner_bid, suit_pq);
 		}
 	}
-
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*  extra, deleted functions
- * 
- * 
- * void Four_card_major(Hand &hand, Bid &response, Hand_Public &hand_data, Bid &partner_bid){
-			//if partner bid a minor
-			if(partner_bid.suit == CLUBS || partner_bid.suit == DIAMONDS)
-			{
-					if(hand.cards_held[SPADES].size() > hand.cards_held[HEARTS].size())
-					{
-						//bid 1S
-						General_response(response, hand_data, SPADES, partner_bid.level, make_pair(6,-1), 4);
-					}
-					else if(hand.cards_held[SPADES].size() < hand.cards_held[HEARTS].size())
-					{
-						//bid 1H
-						General_response(response, hand_data, HEARTS, partner_bid.level, make_pair(6,-1), 4);
-					}
-					else //spades and hearts of equal length
-					{
-							if(hand.cards_held[SPADES].size() > 4) //5+ spades, hearts
-							{
-								//bid 1S
-								General_response(response, hand_data, SPADES, partner_bid.level, make_pair(6,-1), 4);
-							}
-							else //4-hearts, 4-spades
-							{
-								//bid 1H
-								General_response(response, hand_data, HEARTS, partner_bid.level, make_pair(6,-1), 4);
-							}
-					}
-			}
-			//if partner bid hearts
-			else if(partner_bid.suit == HEARTS) 
-			{
-				//bid 1S
-				General_response(response, hand_data, SPADES, partner_bid.level,  make_pair(6,-1), 4);					
-			}
-			//if partner bid spades
-			else if(partner_bid.suit == SPADES)
-			{
-				if(hand.hc_points + hand.dis_points > 9)
-				{
-					//bid 2H over 1S
-					General_response(response, hand_data, HEARTS, partner_bid.level + 1, make_pair(10,-1), 4);
-					hand_data.invitational = true;
-				}
-				else
-				{
-					cerr << "ERROR: want to bid 2H over 1S, but don't have 10 points." << endl; 
-					cerr << "       need to get out of this IF bracket and find another" << endl;
-					cerr << "       bid, but don't how . .. " << endl;
-					cerr << "       UPDATE: correct bid is 1NT (can't support partner's suit, can't introduce new suit)" << endl;
-					assert(0);
-				}
-			}
-			else
-			{
-				cerr << "ERROR: partner didn't bid a suit--either NT or another invalid bid." << endl; 
-				assert(0);
-			}											
-}
-
-
-
-//REQUIRES a bidable 5-card minor suit at the 2-level (10+ points)
-//MODIFIES response, hand_data
-//EFFECTS  bids longer of two minor when unequal in length.  when equal, it bids diamonds when 6 or longer, clubs when 5 or fewer.
-void Five_card_minor_2level(Hand &hand, Bid &response, Hand_Public &hand_data, Bid &partner_bid){
-
-			//i don't know if we need partner_bid because we're asumming this is happening on the 1-level.
-			if(hand.cards_held[DIAMONDS].size() > hand.cards_held[CLUBS].size())
-			{
-				//bid 1D
-				General_response(response, hand_data, 1, partner_bid.level+1, make_pair(10,21), 5);
-			}
-			else if(hand.cards_held[DIAMONDS].size() < hand.cards_held[CLUBS].size())
-			{
-				//bid 1C
-				General_response(response, hand_data, 0, partner_bid.level+1, make_pair(10,21), 5);
-			}
-			else if(hand.cards_held[DIAMONDS].size() == hand.cards_held[CLUBS].size())
-			{
-				if(hand.cards_held[DIAMONDS].size() > 5)
-				{
-					//bid 1D
-					General_response(response, hand_data, 1, partner_bid.level+1, make_pair(10,21), 5);
-				}
-				else if(hand.cards_held[DIAMONDS].size() == 5)
-				{
-					//bid 1C
-					General_response(response, hand_data, 0, partner_bid.level+1, make_pair(10,21), 5);
-				}
-				else
-					assert(0);
-			}
-			hand_data.forcing = true;
-}
- */

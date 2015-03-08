@@ -9,9 +9,6 @@
  * 2015-03-02
  */
 
-
-
-
 #include <vector>
 #include <string>
 #include <cassert>
@@ -22,7 +19,7 @@
 #include <iostream>
 
 
-struct Deck{
+struct Deck {
 	std::vector<Card> card_deck;
 	//should i keep track of a pointer to the "next" card to be dealt?  Card* next;
 };
@@ -40,23 +37,5 @@ void Deck_shuffle(Deck &deck);
 //EFFECTS  Prints each Card in the Deck to stdout followed by a newline, using
 //  the same format as Card_print().
 void Print_deck(const Deck &deck);
-
-
-
-
-
-
-//---------------------------------------------from 280--------------------------------------------------------------------//
-
-//REQUIRES cards remain in the Pack
-//MODIFIES pack_ptr
-//EFFECTS  Returns the next card in the pack and increments the next pointer
-//Card Pack_deal_one(Pack *pack_ptr);
-
-//MODIFIES pack_ptr
-//EFFECTS  Resets next pointer to first card in the Pack
-//void Pack_reset(Pack *pack_ptr);
-
-
 
 #endif

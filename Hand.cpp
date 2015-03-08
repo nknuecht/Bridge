@@ -9,9 +9,6 @@
 #include "Hand.h"
 #include "Bid.h"
 
-//#include "Bid.h"
-//#include "Util.h"
-
 #include <cassert>
 #include <cstring>
 #include <iostream>
@@ -19,12 +16,6 @@
 #include <cstdlib>
 #include <algorithm>
 using namespace std;
-
-
-
-
-
-
 
 
 
@@ -55,14 +46,16 @@ static bool hand_order(Card a, Card b)
 	}
 }
 
-void Sort_hand(Hand &hand){
+void Sort_hand(Hand &hand)
+{
 	for(int s = 0; s < 4; s++)
 	{
 		sort(hand.cards_held[s].begin(), hand.cards_held[s].end(), hand_order);
 	}
 } 
 
-void Sort_hands(vector<Hand> &hands){
+void Sort_hands(vector<Hand> &hands)
+{
 	for(int hand = 0; hand < 4; hand++)
 	{
 		Sort_hand(hands[hand]);
@@ -72,7 +65,8 @@ void Sort_hands(vector<Hand> &hands){
 //REQUIRES Deck has 52 valid cards
 //MODIFIES hands
 //EFFECTS  Deals cards from deck into the four hands held in hands
-void Fill_hands(Deck &deck, vector<Hand> &hands, int dealer){
+void Fill_hands(Deck &deck, vector<Hand> &hands, int dealer)
+{
 	for(int i = 0; i < 52; i++)
 	{
 		for(int cur_hand = 0; cur_hand < 4; cur_hand++)
@@ -89,92 +83,44 @@ void Fill_hands(Deck &deck, vector<Hand> &hands, int dealer){
 
 
 //can clean this function up.
-void Hand_print(Hand &hand){
-		vector<Suit> suit = {SPADES, HEARTS, CLUBS, DIAMONDS};
-		vector<string> suit_letter = {"S: ", "H: ", "C: ", "D: "};
-		for(int s = 0; s < 4; ++s)
+void Hand_print(Hand &hand)
+{
+	vector<Suit> suit = {SPADES, HEARTS, CLUBS, DIAMONDS};
+	vector<string> suit_letter = {"S: ", "H: ", "C: ", "D: "};
+	for(int s = 0; s < 4; ++s)
+	{
+		cout << suit_letter[s];
+		if(hand.cards_held[suit[s]].size() > 0)
 		{
-			cout << suit_letter[s];
-			if(hand.cards_held[suit[s]].size() > 0)
+			for(int i = 0; i < hand.cards_held[suit[s]].size() - 1; ++i)
 			{
-				for(int i = 0; i < hand.cards_held[suit[s]].size() - 1; ++i)
-				{
-					cout << SHORT_RANK_NAMES[hand.cards_held[suit[s]][i].rank] << " ";
-				}
-				cout << SHORT_RANK_NAMES[hand.cards_held[suit[s]][hand.cards_held[suit[s]].size()-1].rank] << endl;
+				cout << SHORT_RANK_NAMES[hand.cards_held[suit[s]][i].rank] << " ";
 			}
-			else
-				cout << endl;
-		}
-		
-		/*
-		cout << "S: ";
-		if(hand.cards_held[SPADES].size() > 0)
-		{
-			for(int i = 0; i < hand.cards_held[SPADES].size() - 1; ++i)
-			{
-				cout << SHORT_RANK_NAMES[hand.cards_held[SPADES][i].rank] << " ";
-			}
-			cout << SHORT_RANK_NAMES[hand.cards_held[SPADES][hand.cards_held[SPADES].size()-1].rank] << endl;
+			//re-write this line for readabilty & speed.
+			cout << SHORT_RANK_NAMES[hand.cards_held[suit[s]][hand.cards_held[suit[s]].size()-1].rank] << endl;
 		}
 		else
 			cout << endl;
-		
-	
-		cout << "H: ";
-		if(hand.cards_held[HEARTS].size() > 0)
-		{
-			for(int i = 0; i < hand.cards_held[HEARTS].size()-1; ++i)
-			{
-				cout << SHORT_RANK_NAMES[hand.cards_held[HEARTS][i].rank] << " ";
-			}
-			cout << SHORT_RANK_NAMES[hand.cards_held[HEARTS][hand.cards_held[HEARTS].size()-1].rank] << endl;
-		}
-		else
-			cout << endl;
-
-	
-		cout << "C: ";
-		if(hand.cards_held[CLUBS].size() > 0)
-		{
-			for(int i = 0; i < hand.cards_held[CLUBS].size()-1; ++i)
-			{
-				cout << SHORT_RANK_NAMES[hand.cards_held[CLUBS][i].rank] << " ";
-			}
-			cout << SHORT_RANK_NAMES[hand.cards_held[CLUBS][hand.cards_held[CLUBS].size()-1].rank] << endl;
-		}
-		else
-			cout << endl;
-		
-		cout << "D: ";
-		if(hand.cards_held[DIAMONDS].size() > 0)
-		{
-			for(int i = 0; i < hand.cards_held[DIAMONDS].size()-1; ++i)
-			{
-				cout << SHORT_RANK_NAMES[hand.cards_held[DIAMONDS][i].rank] << " ";
-			}
-			cout << SHORT_RANK_NAMES[hand.cards_held[DIAMONDS][hand.cards_held[DIAMONDS].size()-1].rank] << endl;
-		}
-		else
-			cout << endl;
-			*/
+	}
 }
 
 
-void Print_hand(Hand &hand){
-		cout << endl; //this seems silly to have here
-		cout << hand.name << "'s hand: " << endl;
-		Hand_print(hand);
-		cout<<endl;
+void Print_hand(Hand &hand)
+{
+	cout << endl; //this seems silly to have here
+	cout << hand.name << "'s hand: " << endl;
+	Hand_print(hand);
+	cout<<endl;
 
-		cout<< "This hand has " << hand.hc_points + hand.dis_points << " points." << endl;
-		cout<< "It has " << hand.cards_held[SPADES].size() << " spades. " << endl;
-		cout<< "It has " << hand.cards_held[HEARTS].size() << " hearts. " << endl;
-		cout<< "It has " << hand.cards_held[CLUBS].size() << " clubs. " << endl;
-		cout<< "It has " << hand.cards_held[DIAMONDS].size() << " diamonds. " << endl;
+	cout<< "This hand has " << hand.hc_points + hand.dis_points << " points." << endl;
+	cout<< "It has " << hand.cards_held[SPADES].size() << " spades. " << endl;
+	cout<< "It has " << hand.cards_held[HEARTS].size() << " hearts. " << endl;
+	cout<< "It has " << hand.cards_held[CLUBS].size() << " clubs. " << endl;
+	cout<< "It has " << hand.cards_held[DIAMONDS].size() << " diamonds. " << endl;
 }
 
-void Print_hands(vector<Hand> &hands){
+void Print_hands(vector<Hand> &hands)
+{
 	for(int j = 0; j < 4; j++)
 	{
 		Print_hand(hands[j]);
@@ -184,36 +130,49 @@ void Print_hands(vector<Hand> &hands){
 static void Add_card_hcp_value(Hand &hand, int suit, int card_index) //helper function
 {
 	if(hand.cards_held[suit][card_index].rank == ACE)
+	{
 		hand.hc_points += 4;
+	}	
 	else if(hand.cards_held[suit][card_index].rank == KING)
+	{
 		hand.hc_points += 3;
+	}
 	else if(hand.cards_held[suit][card_index].rank == QUEEN)
+	{
 		hand.hc_points += 2;
+	}
 	else if(hand.cards_held[suit][card_index].rank == JACK)
+	{
 		hand.hc_points += 1;
+	}
+	else
+	{
+		assert(0 && "reached else in Add_Card_hcp_value");
+	}	
 }
 
-void Get_hand_long_points(Hand &hand){
-
-		hand.hc_points = 0;
-		hand.dis_points = 0;		
-		for(int s = 0; s < hand.cards_held.size(); s++) //loops through suit vectors
+void Get_hand_long_points(Hand &hand)
+{
+	hand.hc_points = 0;
+	hand.dis_points = 0;		
+	for(int s = 0; s < hand.cards_held.size(); s++) //loops through suit vectors
+	{
+		//high card points (can we just interate through the 2D vector rather than doing this nested loop)
+		for(int j = 0; j < hand.cards_held[s].size(); ++j)
 		{
-			//high card points (can we just interate through the 2D vector rather than doing this nested loop)
-			for(int j = 0; j < hand.cards_held[s].size(); ++j)
-			{
-				Add_card_hcp_value(hand, s, j);
-			}
-			//long suit points.
-			if(hand.cards_held[s].size() > 4)
-			{
-				//adds 1 point for a 5-card suit, 2 points for a 6-card suit, 3 points for a 7-card suit . . .
-				hand.dis_points += hand.cards_held[s].size() - 4;
-			}
-			
+			Add_card_hcp_value(hand, s, j);
 		}
+		//long suit points.
+		if(hand.cards_held[s].size() > 4)
+		{
+			//adds 1 point for a 5-card suit, 2 points for a 6-card suit, 3 points for a 7-card suit . . .
+			hand.dis_points += hand.cards_held[s].size() - 4;
+		}
+	}
 }
-void Get_hands_long_points(vector<Hand> &hands){
+
+void Get_hands_long_points(vector<Hand> &hands)
+{
 	for(int j = 0; j < 4; j++)
 	{
 		Get_hand_long_points(hands[j]);
@@ -222,30 +181,30 @@ void Get_hands_long_points(vector<Hand> &hands){
 
 
 
-
 //short suit points after finding a fit.  (counting voids, singletons, and doubletons)
-void Get_short_points(Hand &hand, Suit strain){
-		hand.dis_points = 0;
-		for(int s = 0; s < 4; s++)
+void Get_short_points(Hand &hand, Suit strain)
+{
+	hand.dis_points = 0;
+	for(int s = 0; s < 4; s++)
+	{
+		if(s != strain) // can't add short points in partner's suit . . . (but what if partner has multiple suits?)
 		{
-			if(s != strain) // can't add short points in partner's suit . . . (but what if partner has multiple suits?)
+			//with only three card trump support think about 3,2,1 instead of 5,3,1
+			//think about not count say both the hcp and short points for a singleton Q
+			if(hand.cards_held[s].size() == 0) //void
 			{
-				//with only three card trump support think about 3,2,1 instead of 5,3,1
-				//think about not count say both the hcp and short points for a singleton Q
-				if(hand.cards_held[s].size() == 0) //void
-				{
-					hand.dis_points += 5;
-				}
-				else if(hand.cards_held[s].size() == 1) //singleton
-				{
-					hand.dis_points += 3;
-				}
-				else if(hand.cards_held[s].size() == 2) //doubleton
-				{
-					hand.dis_points += 1;
-				}
+				hand.dis_points += 5;
+			}
+			else if(hand.cards_held[s].size() == 1) //singleton
+			{
+				hand.dis_points += 3;
+			}
+			else if(hand.cards_held[s].size() == 2) //doubleton
+			{
+				hand.dis_points += 1;
 			}
 		}
+	}
 }
 	
 int Get_points(Hand &hand, vector<Hand_Public> &pub_vec, int partner_strain, int bidder)
@@ -266,43 +225,53 @@ int Get_points(Hand &hand, vector<Hand_Public> &pub_vec, int partner_strain, int
 }
 	
 	
-bool Suit_stopped(Hand &hand, Suit suit){
-		if(hand.cards_held[suit].size() == 0) // voids are not stopped
-			return false;
-		else if(hand.cards_held[suit].size() == 1) // singltons must be an ace to be stopped (4hcp)
-		{
-			if(hand.cards_held[suit][0].rank == ACE)
-				return true;
-			else
-				return false;
-		}
-		else if(hand.cards_held[suit].size() == 2) //doubletons require an Ace or King (3hcp isn't enough: QJ is not a stopper)
-		{
-			if(hand.cards_held[suit][0].rank == ACE || hand.cards_held[suit][0].rank == KING)
-				return true;
-			else
-				return false;
-		}
-		else if(hand.cards_held[suit].size() == 3) // trippletons require A, K, or Q (2hpc)
-		{
-			if(hand.cards_held[suit][0].rank == ACE || hand.cards_held[suit][0].rank == KING || hand.cards_held[suit][0].rank == QUEEN)
-				return true;
-			else
-				return false;
-		}
-		else if(hand.cards_held[suit].size() == 4) // four card suits require a Jack (1hcp)
-		{
-			if(hand.cards_held[suit][0].rank == ACE || hand.cards_held[suit][0].rank == KING || hand.cards_held[suit][0].rank == QUEEN || hand.cards_held[suit][0].rank == JACK)
-				return true;
-			else
-				return false;
-		}
-		else//consider a 5+ card suit an effective stopper . . . but mabye shouldn't
+bool Suit_stopped(Hand &hand, Suit suit)
+{
+	if(hand.cards_held[suit].size() == 0) // voids are not stopped
+		return false;
+	else if(hand.cards_held[suit].size() == 1) // singltons must be an ace to be stopped (4hcp)
+	{
+		if(hand.cards_held[suit][0].rank == ACE)
 			return true;
+		else
+			return false;
+	}
+	else if(hand.cards_held[suit].size() == 2) //doubletons require an Ace or King (3hcp isn't enough: QJ is not a stopper)
+	{
+		if(hand.cards_held[suit][0].rank == ACE || hand.cards_held[suit][0].rank == KING)
+			return true;
+		else
+			return false;
+	}
+	else if(hand.cards_held[suit].size() == 3) // trippletons require A, K, or Q (2hpc)
+	{
+		if(hand.cards_held[suit][0].rank == ACE || hand.cards_held[suit][0].rank == KING || hand.cards_held[suit][0].rank == QUEEN)
+			return true;
+		else
+			return false;
+	}
+	else if(hand.cards_held[suit].size() == 4) // four card suits require a Jack (1hcp)
+	{
+		if(hand.cards_held[suit][0].rank == ACE 
+			|| hand.cards_held[suit][0].rank == KING 
+			|| hand.cards_held[suit][0].rank == QUEEN 
+			|| hand.cards_held[suit][0].rank == JACK)
+		{
+			return true;
+		}
+		else
+		{
+			return false;
+		}
+			
+	}
+	else//consider a 5+ card suit an effective stopper . . . but mabye shouldn't
+		return true;
 
 }
 
-bool Hand_stopped(Hand &hand){
+bool Hand_stopped(Hand &hand)
+{
 	for(int i = 0; i < 4; i++)
 	{
 		if(!Suit_stopped(hand, static_cast<Suit>(i)))
@@ -311,7 +280,8 @@ bool Hand_stopped(Hand &hand){
 	return true;
 }
 
-bool Other_suits_stopped(Hand &hand, Suit suit){
+bool Other_suits_stopped(Hand &hand, Suit suit)
+{
 	for(int i = 0; i < 4; i++)
 	{
 		if(i != suit) //don't check for stoppers in specificed suit (probably because partner bid it and has it stopped)
@@ -344,91 +314,3 @@ bool Is_balanced(Hand &hand)
 	return true;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//-------------- 280 stuff ----------------------------------------------//
-/*
-//REQUIRES Player has at least one card.
-//MODIFIES player_ptr
-//EFFECTS Leads one Card from Player's hand according to the strategy in the project spec.
-Card Player_lead_card(Player *player_ptr, Suit trump){
-	Card temp_card;
-	Player_hand_sort_Helper(player_ptr, trump); //We sort player's hand from highest to lowest
-	for(int i= 0; i < player_ptr->hand_size; i++)
-	{
-		//We lead the highest card that isn't trump and then remove it from the player's hand.
-		if(!Card_is_trump(player_ptr->hand+i, trump))
-		{	
-			temp_card = *(player_ptr->hand+i);//place card to be led in temp variable
-			//then we copy the last card in the array to the index of the 
-			//card to be led so we may discard by decrementing hand_size
-			*(player_ptr->hand+i) = *(player_ptr->hand + player_ptr->hand_size-1); 
-			player_ptr->hand_size--;
-			return temp_card; //return card to be led
-		}
-	}
-	//If every card in the player's hand is trump, we play the highest trump card and then remove it from the hand
-	temp_card = *(player_ptr->hand);
-	*(player_ptr->hand) = *(player_ptr->hand + player_ptr->hand_size - 1);
-	player_ptr->hand_size--;
-	return temp_card;
-	
-} 
-
-//REQUIRES Player has at least one card
-//MODIFIES player_ptr
-//EFFECTS  Plays one Card from Player's hand according to the strategy in the
-//	   project spec.
-Card Player_play_card(Player *player_ptr, Suit led_suit, Suit trump){
-	Card temp_card;
-	Player_hand_sort_Helper(player_ptr, trump); //we sort a copy of player's hand from highest to lowest 
-	for(int i = 0; i < player_ptr->hand_size; i++)
-	{
-		//If player can follow suit, he/she plays the highest card of the suit led that they can
-		if(Card_compare_suit(player_ptr->hand+i, led_suit, trump)==0)
-		{	
-			temp_card = *(player_ptr->hand + i);//we place the card to be played in a temp variable
-			//if the player follows suit we copy the largest card to the card which
-			//he will play so we may "discard" the card he plays by decrementing 
-			//his hand_size.
-			*(player_ptr->hand+i) = *(player_ptr->hand + player_ptr->hand_size-1);
-			player_ptr->hand_size--;
-			return temp_card;//return the card to be played
-		}
-	}
-	//if the player cannot follow suit, he plays the lowest card 
-	//which, after sorting, is the last card in the array.
-	player_ptr->hand_size--;
-	return *(player_ptr->hand + player_ptr->hand_size);
-}
-*/

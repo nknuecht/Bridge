@@ -20,7 +20,7 @@
 #include <iostream>
 
 
-struct Hand{
+struct Hand {
 	std::string name;
 	std::vector< std::vector<Card> > cards_held;
 	int hc_points;
@@ -31,7 +31,7 @@ struct Hand{
 	Hand(std::string name_in) : name(name_in), cards_held(4, std::vector<Card>()), hc_points(0), dis_points(0) {}
 };
 
-struct Bid{
+struct Bid {
 	//maybe should have a name / player attached to it.
 	int suit; //maybe this should be a suit . . . 
 	int level;
@@ -40,7 +40,7 @@ struct Bid{
 };
 
 //not sure what file to put this struct in . . . 
-struct Hand_Public{
+struct Hand_Public {
 	std::pair <int, int> point_range;
 	std::pair <int, int> hcp_range;
 	bool balanced;
@@ -63,66 +63,33 @@ void Add_card(Hand &hand, Card &card); //would be a helper function, but i call 
 //this kind of fills the hand_init kind of function, although it uses the deck, doesn't fill an invidiual hand, and doesn't allow an empty hand.
 //void Hand_order(Card a, Card b); //helper function
 void Sort_hand(Hand &hand); //helper function
+
 void Sort_hands(Hand &hand);  //helper function
  
 void Fill_hands(Deck &deck, std::vector<Hand> &hands, int dealer);
-
 
 //difference between these print functions?
 void Hand_print(Hand &hand); //function which just prints the cards, and not the points / suit length.
 void Print_hand(Hand &hand);
 void Print_hands(std::vector<Hand> &hands);
 
-
-
 void Get_hand_long_points(Hand &hand);
+
 void Get_hands_long_points(std::vector<Hand> &hands);
 
 void Get_short_points(Hand &hand, Suit strain);
+
 int Get_points(Hand &hand, std::vector<Hand_Public> &pub_vec, int partner_strain, int bidder);
 
 bool Suit_stopped(Hand &hand, Suit suit);
+
 bool Hand_stopped(Hand &hand);
+
 bool Other_suits_stopped(Hand &hand, Suit suit);
 
 bool Is_balanced(Hand &hand);
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-//----------------------- 280 stuff ------------------------------------- //
-
-/*
-//REQUIRES round is 1 or 2
-//EFFECTS Orders up a trump suit or passes according to the strategy in the
-//  project spec.
-Bid Make_bid(const Player *player_ptr, const Card *upcard, Player *dealer, int round);
-
-
-//REQUIRES Player has at least one card
-//MODIFIES player_ptr
-//EFFECTS  Leads one Card from Player's hand according to the strategy in the
-//  project spec.  "Lead" means to play the first Card in a trick.
-Card Player_lead_card(Player *player_ptr, Suit trump);
-
-//REQUIRES Player has at least one card
-//MODIFIES player_ptr
-//EFFECTS  Plays one Card from Player's hand according to the strategy in the
-//  project spec.
-Card Player_play_card(Player *player_ptr, Suit led_suit, Suit trump);
-*/
 
 #endif

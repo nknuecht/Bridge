@@ -3,8 +3,6 @@
 
 /* Util.h
  *
- * 
- *
  * by Nicholas Nuechterlein
  * nknuecht@umich.edu
  * 2015-03-02
@@ -52,6 +50,10 @@ void ReadBid(std::ifstream &file, std::string &line, Bid &opening_bid, Hand_Publ
 //EFFECTS  obtains south's (the test bid) correct bid for later verification. calls CheckBid_helper to varify that all other bids are consistent (human error check)
 void CheckBids(std::ifstream &file, std::string &line, std::vector< std:: pair<Bid, Bid> > &bid_checks, std::unordered_map<std::string, Hand_Public> &opening_data);
 			
+
+//REQUIRES south's hand is empty
+//MODIFIES bid_checks, opening_data, public_vec, bidder, number_hands, hands
+//EFFECTS  obtains south's (the test bid) correct bid for later verification.  fills south's hand. calls CheckBid_helper to varify that all other bids are consistent (human error check)
 void ReadFile(std::ifstream &file, 
 			  std::string &line, 
 			  int &total_num_hands, 
@@ -61,9 +63,5 @@ void ReadFile(std::ifstream &file,
 			  std::vector<Hand_Public> &pub_vec, 
 			  int &bidder, 
 			  std::vector<Hand> &hands);
-			  
-			  
-
-
 
 #endif
