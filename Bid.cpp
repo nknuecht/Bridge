@@ -182,17 +182,17 @@ void New_suit_intro(Bid &response, Hand_Public &hand_data, Bid partner_bid, prio
 	}
 	else //if somehow this is still partner's suit
 	{
-			suit_pq.pop();
-			long_suit = suit_pq.top(); //long_suit now is second longest (but longest which is not partner's suit)
-			response = Next_bid(long_suit.suit, partner_bid);
-			//this if can be deleted.
-			if(long_suit.length < 4)
-			{
-				cerr<< "ERROR: we need to bring up a new suit, but we don't have one that is 4+ cards" << endl;
-				cerr<< "       should we bid NT, bid a 3-card suit, or jump in the 4+ support of partner's suit?" << endl;
-				cerr<< "       probably we just bid the 3-card suit and then later show support" << endl;
-				assert(0);
-			}
+		suit_pq.pop();
+		long_suit = suit_pq.top(); //long_suit now is second longest (but longest which is not partner's suit)
+		response = Next_bid(long_suit.suit, partner_bid);
+		//this if can be deleted.
+		if(long_suit.length < 4)
+		{
+			cerr<< "ERROR: we need to bring up a new suit, but we don't have one that is 4+ cards" << endl;
+			cerr<< "       should we bid NT, bid a 3-card suit, or jump in the 4+ support of partner's suit?" << endl;
+			cerr<< "       probably we just bid the 3-card suit and then later show support" << endl;
+			assert(0);
+		}
 	}
 	hand_data.point_range = make_pair(12, -1); //don't know what the top range would be . . .
 	hand_data.suit_length[response.suit] = 4; // this could be three, but i think it promises 4.
@@ -215,14 +215,14 @@ void Support_major(Hand &hand, Bid &response, Hand_Public &hand_data, Bid &partn
 	cout << "this hand now has " << short_points << " short points after reevaluating short points!" << endl;
 	if(short_points > 5 && short_points < 10) // between 6-9
 	{
-			if(hand.cards_held[partner_bid.suit].size() < 5) // if 3 or 4 card support do a single raise
-			{
-				Single_raise(response, hand_data, partner_bid);
-			}
-			else // if  5 or more card support do a double jump raise to game.
-			{
-				Double_jump_raise(response, hand_data, partner_bid);
-			}
+		if(hand.cards_held[partner_bid.suit].size() < 5) // if 3 or 4 card support do a single raise
+		{
+			Single_raise(response, hand_data, partner_bid);
+		}
+		else // if  5 or more card support do a double jump raise to game.
+		{
+			Double_jump_raise(response, hand_data, partner_bid);
+		}
 	}
 	else if(short_points > 9 && short_points < 12) // between 10-11 do a limit raise (This is invitational)
 	{
@@ -239,48 +239,48 @@ void Support_major(Hand &hand, Bid &response, Hand_Public &hand_data, Bid &partn
 //MODIFIES response, pub_vec[bidder]
 //EFFECTS  makes response with priority (1) new 4-card major or 5-card minor (2) 2NT or 3NT (3) a suitable 1NT, (4) 1C -> 1D, (5) support of minor, (6) 1NT
 void Minor_suit_response(Hand &hand, 
-						 vector<Hand_Public> &pub_vec, 
-						 Bid &response, 
-						 int bidder, 
-						 Bid &partner_bid, 
-						 priority_queue<Suit_Length, vector<Suit_Length>, CompSuits> &suit_pq)
+			 vector<Hand_Public> &pub_vec, 
+			 Bid &response, 
+			 int bidder, 
+			 Bid &partner_bid, 
+			 priority_queue<Suit_Length, vector<Suit_Length>, CompSuits> &suit_pq)
 {
-		if(Check_4CM_5Cm(hand, partner_bid.suit)) // have a 4-card major or a 5-card minor which we will bid.
-		{
-			Bid_long_suit(hand, response, pub_vec[bidder], partner_bid, suit_pq);
-		}
-		else if(Check_2NT_3NT_raise(hand, pub_vec, bidder, partner_bid)) //bid 2NT or 3NT
-		{
-			NT_Jump_Res(hand, response, pub_vec[bidder], partner_bid); 
-		}
-		else if(Suitable_1NT_Res(hand, partner_bid.suit)) // bit 1NT with 4-3, 4-4, or 3-4 in clubs and diamonds and no suitable 4-card major / 5-card minor
-		{
-			NT_1Res(response, pub_vec[bidder], partner_bid);
-		}
-		else if(Check_1D_over_1C(hand, partner_bid.suit)) // bit 1D over 1C
-		{
-			General_response(response, pub_vec[bidder], DIAMONDS, partner_bid.level, make_pair(6,-1), 4);
-			pub_vec[bidder].forcing = true;
-		}
-		else if(Check_support(hand, partner_bid.suit)) // support partner's minor
-		{
-			Support_minor(hand, response, pub_vec[bidder], partner_bid, suit_pq);
-		}
-		else // Last resort 1NT Bid. only happens with 3-4-3-3 and no stopper in diamonds . . 
-		{
-			NT_1Res(response, pub_vec[bidder], partner_bid);
-		}
+	if(Check_4CM_5Cm(hand, partner_bid.suit)) // have a 4-card major or a 5-card minor which we will bid.
+	{
+		Bid_long_suit(hand, response, pub_vec[bidder], partner_bid, suit_pq);
+	}
+	else if(Check_2NT_3NT_raise(hand, pub_vec, bidder, partner_bid)) //bid 2NT or 3NT
+	{
+		NT_Jump_Res(hand, response, pub_vec[bidder], partner_bid); 
+	}
+	else if(Suitable_1NT_Res(hand, partner_bid.suit)) // bit 1NT with 4-3, 4-4, or 3-4 in clubs and diamonds and no suitable 4-card major / 5-card minor
+	{
+		NT_1Res(response, pub_vec[bidder], partner_bid);
+	}
+	else if(Check_1D_over_1C(hand, partner_bid.suit)) // bit 1D over 1C
+	{
+		General_response(response, pub_vec[bidder], DIAMONDS, partner_bid.level, make_pair(6,-1), 4);
+		pub_vec[bidder].forcing = true;
+	}
+	else if(Check_support(hand, partner_bid.suit)) // support partner's minor
+	{
+		Support_minor(hand, response, pub_vec[bidder], partner_bid, suit_pq);
+	}
+	else // Last resort 1NT Bid. only happens with 3-4-3-3 and no stopper in diamonds . . 
+	{
+		NT_1Res(response, pub_vec[bidder], partner_bid);
+	}
 }
 
 //REQUIRES
 //MODIFIES response, pub_vec[bidder]
 //EFFECTS  makes response with priority (1) new 4-card major or 5-card minor (2) 2NT or 3NT (3) a 1NT last resort.  records promised data in pub_vec[bidder]
 void Unsuported_major_response(Hand &hand, 
-							   vector<Hand_Public> &pub_vec, 
-							   Bid &response, 
-							   int bidder, 
-							   Bid &partner_bid, 
-							   priority_queue<Suit_Length, vector<Suit_Length>, CompSuits> &suit_pq)
+		   vector<Hand_Public> &pub_vec, 
+		   Bid &response, 
+		   int bidder, 
+		   Bid &partner_bid, 
+		   priority_queue<Suit_Length, vector<Suit_Length>, CompSuits> &suit_pq)
 {
 	if(Check_4CM_5Cm(hand, partner_bid.suit))
 	{
@@ -547,15 +547,15 @@ int Suit_strength(Hand &hand, int suit)
 	int suit_count = 0;
 	for(int i = 0; i < hand.cards_held[suit].size(); i++) //loops through desired suit of hand
 	{	
-			//checks for facecards within desired suit.
-			if(hand.cards_held[suit][i].rank == ACE) 
-				suit_count += 4;
-			else if(hand.cards_held[suit][i].rank == KING)
-				suit_count += 3;
-			else if(hand.cards_held[suit][i].rank == QUEEN)
-				suit_count += 2;
-			else if(hand.cards_held[suit][i].rank == JACK)
-				suit_count += 1;
+		//checks for facecards within desired suit. (I Think I have a function that does just this . . . "Add_card_hcp_value helper" in hand.cpp)
+		if(hand.cards_held[suit][i].rank == ACE) 
+			suit_count += 4;
+		else if(hand.cards_held[suit][i].rank == KING)
+			suit_count += 3;
+		else if(hand.cards_held[suit][i].rank == QUEEN)
+			suit_count += 2;
+		else if(hand.cards_held[suit][i].rank == JACK)
+			suit_count += 1;
 	}
 	return suit_count;
 }
